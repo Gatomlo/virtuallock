@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{lock.name}}{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('css/piano.css') }}">
+{% endblock %}
+
+{% block body %}
+<div id="body">
+  <div class="container">
+    <div id="passZone">
+      Entrer code
+    </div>
+    <div id="body">
+      <div class="piano">
+        <div class="piano-container">
+          <div class="piano-keys">
+            <div class="oneKey piano-white piano-C3" data-value="C3"></div>
+            <div class=" piano-black"><div data-value="Db3" class=" oneKey piano-black-raised piano-Db3"></div></div>
+            <div class="oneKey piano-white piano-D3" data-value="D3"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Eb3" data-value="Eb3"></div></div>
+            <div class="oneKey piano-white piano-E3" data-value="E3"></div>
+            <div class="oneKey piano-white piano-F3" data-value="F3"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Gb3" data-value="Gb3"></div></div>
+            <div class="oneKey piano-white piano-G3" data-value="G3"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Ab3" data-value="Ab3"></div></div>
+            <div class="oneKey piano-white piano-A3" data-value="A3"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Bb3" data-value="Bb3"></div></div>
+            <div class="oneKey piano-white piano-B3" data-value="B3"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col oneDigit">
+          <button button id="reset" type="button" class="btn btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bootstrap-reboot" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M1.161 8a6.84 6.84 0 1 0 6.842-6.84.58.58 0 0 1 0-1.16 8 8 0 1 1-6.556 3.412l-.663-.577a.58.58 0 0 1 .227-.997l2.52-.69a.58.58 0 0 1 .728.633l-.332 2.592a.58.58 0 0 1-.956.364l-.643-.56A6.812 6.812 0 0 0 1.16 8zm5.48-.079V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324h-1.6zm0 3.75V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352h1.141z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="col oneDigit">
+          <button button id="listen" type="button" class="btn btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-music-note-beamed" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13c0-1.104 1.12-2 2.5-2s2.5.896 2.5 2zm9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
+              <path fill-rule="evenodd" d="M14 11V2h1v9h-1zM6 3v10H5V3h1z"/>
+              <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4V2.905z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="col oneDigit">
+          <button id="send" type="button" class="btn btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-key-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="soluceZone"></div>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+  var solution = '{{lock.solution}}';
+  var solutionInArray = solution.split(",");
+  var trying =[];
+  $('.oneKey').click(function(){
+    var clickedKey = $(this).data('value');
+    createSound(clickedKey);
+    trying.push(clickedKey);
+    $(this).addClass("blueKey");
+    setTimeout(function () {
+        $('.blueKey').removeClass("blueKey");
+    }, 200);
+  })
+  $('#send').click(function(){
+    console.log(trying)
+    console.log(solutionInArray)
+    if (arraysAreIdentical(trying,solutionInArray)){
+      if ('{{lock.url}}' == ''){
+        $('#soluceZone').html('{{lock.finalTexte}}');
+      }
+      else{
+        window.location.href = '{{lock.url}}';
+      }
+    }
+    else{
+      $('#soluceZone').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
+      '<strong>Erreur!</strong>Code incorrect.'+
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+        '<span aria-hidden="true">&times;</span></button></div>')
+    }
+  })
+  $('#reset').click(function(){
+    trying = [];
+  })
+  $('#listen').click(function(){
+    trying.forEach((item, i) => {
+    setTimeout(function () {
+      createSound(item);
+    }, 500 * i);
+    });
+  })
+  function arraysAreIdentical(arr1, arr2){
+    if (arr1.length !== arr2.length) return false;
+    for (var i = 0, len = arr1.length; i < len; i++){
+      if (arr1[i] !== arr2[i]){
+      return false;
+    }
+  }
+  return true;
+  }
+  function createSound(key){
+    var obj = document.createElement("audio");
+    obj.src = "{{ asset('samples/') }}"+key+".ogg";
+    obj.autoPlay = false;
+    obj.preload = true;
+    obj.controls = false;
+    obj.play();
+  }
+</script>
+
+{% endblock %}

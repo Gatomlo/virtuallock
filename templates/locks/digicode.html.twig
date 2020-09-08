@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{lock.name}}{% endblock %}
+{% block stylesheets %}
+  <style>.col{
+    text-align: center;
+    max-width: 80px;
+  }
+  #passZone{
+    font-size: 60px;
+    text-align: center;
+  }
+
+  .wrong{
+    color:red;
+  }
+  </style>
+{% endblock %}
+
+{% block body %}
+<div id="body">
+  <div class="container">
+    <div id="passZone">
+      Entrer code
+    </div>
+    <div id="digit" class="container">
+        <div class="row justify-content-center">
+          <div class="col oneDigit"><button data-num="7" id="num7" type="button" class="btn digit btn-primary oneDigitButton">7</button></div>
+          <div class="col oneDigit"><button data-num="8" id="num8" type="button" class="btn  digit btn-primary oneDigitButton">8</button></div>
+          <div class="col oneDigit"><button data-num="9" id="num9" type="button" class="btn digit btn-primary oneDigitButton">9</button></div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col oneDigit"><button data-num="4"  id="num4" type="button" class="btn digit btn-primary oneDigitButton">4</button></div>
+          <div class="col oneDigit"><button data-num="5" id="num5" type="button" class="btn digit btn-primary oneDigitButton">5</button></div>
+          <div class="col oneDigit"><button data-num="6" id="num6" type="button" class="btn digit btn-primary oneDigitButton">6</button></div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col oneDigit"><button data-num="1" id="num1" type="button" class="btn digit btn-primary oneDigitButton">1</button></div>
+          <div class="col oneDigit"><button data-num="2" id="num2" type="button" class="btn digit btn-primary oneDigitButton">2</button></div>
+          <div class="col oneDigit"><button data-num="3" id="num3" type="button" class="btn digit btn-primary oneDigitButton">3</button></div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col oneDigit">
+            <button button id="reset" type="button" class="btn digit btn-primary">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bootstrap-reboot" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M1.161 8a6.84 6.84 0 1 0 6.842-6.84.58.58 0 0 1 0-1.16 8 8 0 1 1-6.556 3.412l-.663-.577a.58.58 0 0 1 .227-.997l2.52-.69a.58.58 0 0 1 .728.633l-.332 2.592a.58.58 0 0 1-.956.364l-.643-.56A6.812 6.812 0 0 0 1.16 8zm5.48-.079V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324h-1.6zm0 3.75V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352h1.141z"/>
+              </svg>
+            </button>
+          </div>
+          <div class="col oneDigit"><button data-num="0" id="num0" type="button" class="btn digit btn-primary oneDigitButton">0</button></div>
+          <div class="col oneDigit">
+            <button id="send" type="button" class="btn digit btn-primary">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-key-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+    </div>
+    <div id="soluceZone"></div>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+  var solution = '{{lock.solution}}';
+  var solutionInArray = solution.split("");
+  var trying =[];
+  $('.oneDigitButton').click(function(){
+    var value = $(this).data('num');
+    trying.push(String(value));
+    $("#passZone").html("");
+    displayDigits();
+  });
+  function displayDigits(){
+    $('#passZone').html("");
+    $.each(trying, function(index,value){
+      $("#passZone").append(value);
+    });
+  }
+  $('#reset').click(function() {
+    $("#passZone").html("Entrer code");
+    trying = [];
+  })
+  $('#send').click(function(){
+    if (arraysAreIdentical(trying,solutionInArray)){
+      if ('{{lock.url}}' == ''){
+        $('#soluceZone').html('{{lock.finalTexte}}');
+      }
+      else{
+        window.location.href = '{{lock.url}}';
+      }
+    }
+    else{
+      $('#soluceZone').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
+      '<strong>Erreur!</strong> Mot de passe incorrect.'+
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+        '<span aria-hidden="true">&times;</span></button></div>')
+    }
+  })
+  function arraysAreIdentical(arr1, arr2){
+    if (arr1.length !== arr2.length) return false;
+    for (var i = 0, len = arr1.length; i < len; i++){
+      if (arr1[i] !== arr2[i]){
+      return false;
+    }
+  }
+  return true;
+  }
+
+</script>
+{% endblock %}

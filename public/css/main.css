@@ -1,0 +1,23 @@
+#logo{
+  text-align: center;
+  font-size: 80px;
+  color:#0069d9;
+}
+
+.digit{
+  width:75px;
+  font-size: 45px;
+  margin-top: 5px;
+}
+.col{
+  text-align: center;
+  max-width: 80px;
+}
+#passZone{
+  font-size: 60px;
+  text-align: center;
+}
+
+.wrong{
+  color:red;
+}
