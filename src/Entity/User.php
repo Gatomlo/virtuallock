@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -40,6 +42,26 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Lock::class, mappedBy="user")
+     */
+    private $locks;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstname;
+
+    public function __construct()
+    {
+        $this->locks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,6 +149,61 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lock[]
+     */
+    public function getLocks(): Collection
+    {
+        return $this->locks;
+    }
+
+    public function addLock(Lock $lock): self
+    {
+        if (!$this->locks->contains($lock)) {
+            $this->locks[] = $lock;
+            $lock->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLock(Lock $lock): self
+    {
+        if ($this->locks->contains($lock)) {
+            $this->locks->removeElement($lock);
+            // set the owning side to null (unless already changed)
+            if ($lock->getUser() === $this) {
+                $lock->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }

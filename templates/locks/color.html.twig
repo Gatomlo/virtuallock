@@ -20,6 +20,7 @@
 {% block body %}
 <div id="body">
   <div class="container">
+    <div id="intro">{{lock.intro}}</div>
     <div id="passZone">
       Entrer code
     </div>
@@ -133,7 +134,7 @@
       $('#soluceZone').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
       '<strong>Erreur!</strong> Mot de passe incorrect.'+
       '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-        '<span aria-hidden="true">&times;</span></button></div>')
+      '<span aria-hidden="true">&times;</span></button></div>')
     }
   })
   function arraysAreIdentical(arr1, arr2){

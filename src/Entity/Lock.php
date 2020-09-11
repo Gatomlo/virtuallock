@@ -31,7 +31,7 @@ class Lock
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $solution = [];
+    private $solution;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -57,6 +57,12 @@ class Lock
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $url;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="locks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -155,6 +161,18 @@ class Lock
     public function setUrl(?string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

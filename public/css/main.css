@@ -21,3 +21,19 @@
 .wrong{
   color:red;
 }
+
+.lockName{
+  padding-left: 10px;
+}
+
+#userLogOut{
+  color:white;
+}
+
+#logoutLink{
+  color:white;
+}
+
+.indexButton{
+  margin: 10px;
+}

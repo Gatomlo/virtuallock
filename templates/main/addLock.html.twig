@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}displayLock{% endblock %}
+
+{% block body %}
+<div class="container">
+{{ form_start(form) }}
+  {{form_row(form.name)}}
+  {{form_row(form.solution)}}
+  {{form_row(form.type)}}
+    <div id="codeZone"></div>
+  {{form_row(form.intro)}}
+  {{form_row(form.finalTexte)}}
+  {{form_row(form.url)}}
+  {{form_row(form.save)}}
+{{ form_end(form) }}
+</div>
+
+{% endblock %}
+{% block javascripts %}
+  <script src="{{asset('js/PatternLock.js')}}"></script>
+  <script src="{{ asset('js/createLock.js') }}"></script>
+{% endblock %}

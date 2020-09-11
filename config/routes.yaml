@@ -1,13 +1,15 @@
 index:
     path: /
-    controller: App\Controller\MainController::index
-
+    controller: App\Controller\SecurityController::login
 
 displayAllLocks:
     path: /displayAllLocks
     controller: App\Controller\MainController::displayAllLocksAction
 
-
 displayLock:
-    path: /displaylock/{serial}
+    path: /displayLock/{serial}
     controller: App\Controller\MainController::displayLockAction
+
+addLock:
+    path: /addLock/
+    controller: App\Controller\MainController::addLockAction
