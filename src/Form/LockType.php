@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class LockType extends AbstractType
 {
@@ -20,7 +21,7 @@ class LockType extends AbstractType
               'label'=>'Nom du cadenas',
               'attr'=> array('class'=>'form-control')
             ))
-            ->add('solution',TextType::class, array(
+            ->add('solution',HiddenType::class, array(
               'label'=>'solution',
               'attr'=> array('class'=>'form-control')
             ))
@@ -40,11 +41,11 @@ class LockType extends AbstractType
             ))
             ->add('intro',null,array(
               'label'=>'Texte d\'introduction',
-              'attr'=> array('class'=>'form-control')
+              'attr'=> array('class'=>'form-control summernote','id'=>'summernoteTest')
             ))
             ->add('finalTexte',null,array(
               'label'=>'Texte final',
-              'attr'=> array('class'=>'form-control')
+              'attr'=> array('class'=>'form-control summernote')
             ))
             ->add('url',null,array(
               'label'=> 'URL de redirection',

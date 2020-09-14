@@ -45,9 +45,51 @@ class MainController extends AbstractController
         {
           $lock = new Lock();
           $form = $this->createForm(LockType::class, $lock);
-          return $this->render('main/addLock.html.twig', array(
-           'form' => $form->createView(),
+          // Si la requête est en POST
+          if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
 
-         ));
+            if ($form->isValid()) {
+              $em = $this->getDoctrine()->getManager();
+              $lock->SetUser($this->getUser());
+              $lock->SetSerial(uniqid($this->getUser()->getId()));
+              $em->persist($lock);
+              $em->flush();
+              return $this->redirectToRoute('displayAllLocks');
+            }
+          }
+          return $this->render('main/addLock.html.twig', array(
+           'form' => $form->createView(), ));
         }
+
+        /**
+        * @Route("/editLock/{id}", name="editLock")
+        */
+          public function editLockAction(Request $request, LockRepository $locksRepo, $id)
+          {
+            $em = $this->getDoctrine()->getManager();
+            $lock = $locksRepo-> findOneBy(['id'=> $id]);
+            $form = $this->get('form.factory')->create(LockType::class, $lock);
+            if ($request->isMethod('POST')) {
+              $form->handleRequest($request);
+              if ($form->isValid()) {
+                $em->persist($lock);
+                $em->flush();
+                return $this->redirectToRoute('displayAllLocks');
+             }}
+             return $this->render('main/addLock.html.twig', array(
+              'form' => $form->createView(), ));
+          }
+
+          /**
+          * @Route("/deleteLock/{id}", name="deleteLock")
+          */
+            public function deleteLockAction(LockRepository $locksRepo, $id)
+            {
+              $em = $this->getDoctrine()->getManager();
+              $lock = $locksRepo-> findOneBy(['id'=> $id]);
+              $em->remove($lock);
+              $em->flush();
+              return $this->redirectToRoute('displayAllLocks');
+            }
 }

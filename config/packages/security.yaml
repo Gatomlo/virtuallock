@@ -37,3 +37,6 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/displayAllLocks, roles: ROLE_USER }
+         - { path: ^/addLock, roles: ROLE_USER }
+         - { path: ^/editLock, roles: ROLE_USER }
+         - { path: ^/deleteLock, roles: ROLE_USER }

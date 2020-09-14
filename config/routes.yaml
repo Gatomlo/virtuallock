@@ -13,3 +13,11 @@ displayLock:
 addLock:
     path: /addLock/
     controller: App\Controller\MainController::addLockAction
+
+editLock:
+    path: /editLock/{id}
+    controller: App\Controller\MainController::editLockAction
+
+deleteLock:
+    path: /deleteLock/{id}
+    controller: App\Controller\MainController::deleteLockAction

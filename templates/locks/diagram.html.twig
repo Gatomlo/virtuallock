@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{lock.name}}{% endblock %}
+{% block title %}VirtualLock{% endblock %}
 
 {% block body %}
 
 <div id="body">
   <div class="container">
-    <div id="intro">{{lock.intro}}</div>
+    <div id="intro">{{lock.intro | raw}}</div>
     <div id="digit" class="row align-items-center">
       <div class="m-auto" id="lock"></div>
     </div>
@@ -31,7 +31,7 @@
             console.log(trying)
             if (arraysAreIdentical(solutionInArray,trying)){
               if ('{{lock.url}}' == ''){
-                $('#soluceZone').html('{{lock.finalTexte}}');
+                $('#soluceZone').html('{{lock.finalTexte | raw}}');
               }
               else{
                 window.location.href = '{{lock.url}}';

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{lock.name}}{% endblock %}
+{% block title %}VirtualLock{% endblock %}
 {% block stylesheets %}
   <link rel="stylesheet" href="{{ asset('css/piano.css') }}">
 {% endblock %}
@@ -8,7 +8,7 @@
 {% block body %}
 <div id="body">
   <div class="container">
-    <div id="intro">{{lock.intro}}</div>
+    <div id="intro">{{lock.intro | raw}}</div>
     <div id="passZone">
       Entrer code
     </div>
@@ -16,18 +16,18 @@
       <div class="piano">
         <div class="piano-container">
           <div class="piano-keys">
-            <div class="oneKey piano-white piano-C3" data-value="C3"></div>
-            <div class=" piano-black"><div data-value="Db3" class=" oneKey piano-black-raised piano-Db3"></div></div>
-            <div class="oneKey piano-white piano-D3" data-value="D3"></div>
-            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Eb3" data-value="Eb3"></div></div>
-            <div class="oneKey piano-white piano-E3" data-value="E3"></div>
-            <div class="oneKey piano-white piano-F3" data-value="F3"></div>
-            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Gb3" data-value="Gb3"></div></div>
-            <div class="oneKey piano-white piano-G3" data-value="G3"></div>
-            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Ab3" data-value="Ab3"></div></div>
-            <div class="oneKey piano-white piano-A3" data-value="A3"></div>
-            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Bb3" data-value="Bb3"></div></div>
-            <div class="oneKey piano-white piano-B3" data-value="B3"></div>
+            <div class="oneKey piano-white piano-C" data-value="C"></div>
+            <div class=" piano-black"><div data-value="Db" class=" oneKey piano-black-raised piano-Db"></div></div>
+            <div class="oneKey piano-white piano-D" data-value="D"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Eb" data-value="Eb"></div></div>
+            <div class="oneKey piano-white piano-E" data-value="E"></div>
+            <div class="oneKey piano-white piano-F" data-value="F"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Gb" data-value="Gb"></div></div>
+            <div class="oneKey piano-white piano-G" data-value="G"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Ab" data-value="Ab"></div></div>
+            <div class="oneKey piano-white piano-A" data-value="A"></div>
+            <div class="oneKey piano-black"><div class="oneKey piano-black-raised piano-Bb" data-value="Bb"></div></div>
+            <div class="oneKey piano-white piano-B" data-value="B"></div>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@
     console.log(solutionInArray)
     if (arraysAreIdentical(trying,solutionInArray)){
       if ('{{lock.url}}' == ''){
-        $('#soluceZone').html('{{lock.finalTexte}}');
+        $('#soluceZone').html('{{lock.finalTexte | raw}}');
       }
       else{
         window.location.href = '{{lock.url}}';

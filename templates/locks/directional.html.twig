@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{lock.name}}{% endblock %}
+{% block title %}VirtualLock{% endblock %}
 {% block stylesheets %}
   <style>.col{
     text-align: center;
@@ -20,7 +20,7 @@
 {% block body %}
 <div id="body">
   <div class="container">
-    <div id="intro">{{lock.intro}}</div>
+    <div id="intro">{{lock.intro  | raw}}</div>
     <div id="passZone">
       Entrer code
     </div>
@@ -215,7 +215,7 @@
   $('#send').click(function(){
     if (arraysAreIdentical(trying,solutionInArray)){
       if ('{{lock.url}}' == ''){
-        $('#soluceZone').html('{{lock.finalTexte}}');
+        $('#soluceZone').html('{{lock.finalTexte | raw}}');
       }
       else{
         window.location.href = '{{lock.url}}';
