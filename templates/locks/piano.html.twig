@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}VirtualLock{% endblock %}
-{% block stylesheets %}
-  <link rel="stylesheet" href="{{ asset('css/piano.css') }}">
-{% endblock %}
-
 {% block body %}
 <div id="body">
   <div class="container">
-    <div id="intro">{{lock.intro | raw}}</div>
+    {% if lock.intro is not empty %}
+    <div class="card intro">
+      <div class="card-body">
+        {{lock.intro | raw}}
+      </div>
+    </div>
+    {% endif %}
     <div id="passZone">
       Entrer code
     </div>
@@ -76,11 +77,9 @@
     }, 200);
   })
   $('#send').click(function(){
-    console.log(trying)
-    console.log(solutionInArray)
     if (arraysAreIdentical(trying,solutionInArray)){
       if ('{{lock.url}}' == ''){
-        $('#soluceZone').html('{{lock.finalTexte | raw}}');
+        $('#soluceZone').html('<div class="card outro"><div class="card-body">{{lock.finalTexte | raw}}</div></div>');
       }
       else{
         window.location.href = '{{lock.url}}';
@@ -100,8 +99,14 @@
     trying.forEach((item, i) => {
     setTimeout(function () {
       createSound(item);
+      $('.piano-'+item).addClass("blueKey")
+      setTimeout(function () {
+          $('.blueKey').removeClass("blueKey");
+      }, 200);
     }, 500 * i);
+
     });
+
   })
   function arraysAreIdentical(arr1, arr2){
     if (arr1.length !== arr2.length) return false;

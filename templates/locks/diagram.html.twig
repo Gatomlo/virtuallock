@@ -6,7 +6,16 @@
 
 <div id="body">
   <div class="container">
-    <div id="intro">{{lock.intro | raw}}</div>
+    {% if lock.intro is not empty %}
+    <div class="card intro">
+      <div class="card-body">
+        {{lock.intro | raw}}
+      </div>
+    </div>
+    {% endif %}
+    <div id="passZone">
+      Entrer code
+    </div>
     <div id="digit" class="row align-items-center">
       <div class="m-auto" id="lock"></div>
     </div>
@@ -15,36 +24,29 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-<script src="{{asset('js/PatternLock.js')}}"></script>
+<script src="{{asset('js/patternLock.min.js')}}"></script>
   <script >
     var solution ='{{lock.solution}}';
     var solutionInArray = solution.split(',')
-    console.log(solution)
-    $(document).ready(function(){
-        $('#lock').patternLock({
-        centerCircle: false,
-        timeout: 4000,
-        centerCircleSize: 20,
-        patternLineColor: '#0069d9',
-        drawEnd: function(data) {
-            var trying = data.split(",");
-            console.log(trying)
-            if (arraysAreIdentical(solutionInArray,trying)){
-              if ('{{lock.url}}' == ''){
-                $('#soluceZone').html('{{lock.finalTexte | raw}}');
-              }
-              else{
-                window.location.href = '{{lock.url}}';
-              }
-            }
-            else{
-              $('#soluceZone').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
-              '<strong>Erreur!</strong>Schéma incorrect.'+
-              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-              '<span aria-hidden="true">&times;</span></button></div>')
-            }
+    var lock= new PatternLock('#lock',{
+      lineOnMove:false,
+      onDraw:function(data){
+        var trying = data.split("");
+        if (arraysAreIdentical(solutionInArray,trying)){
+          if ('{{lock.url}}' == ''){
+            $('#soluceZone').html('<div class="card outro"><div class="card-body">{{lock.finalTexte | raw}}</div></div>');
+          }
+          else{
+            window.location.href = '{{lock.url}}';
+          }
         }
-      });
+        else{
+          $('#soluceZone').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
+          '<strong>Erreur!</strong>Schéma incorrect.'+
+          '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+          '<span aria-hidden="true">&times;</span></button></div>')
+        }
+   }
     });
     function arraysAreIdentical(arr1, arr2){
       if (arr1.length !== arr2.length) return false;

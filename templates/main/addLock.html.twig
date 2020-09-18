@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout de cadenas{% endblock %}
+{% block title %}{{status}} de cadenas{% endblock %}
 {% block stylesheets %}
   <link rel="stylesheet" href="{{ asset('css/piano.css') }}">
 {% endblock %}
@@ -20,11 +20,16 @@
     <a class="nav-link" href="{{path('displayAllLocks')}}">Mes cadenas</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Mon profil</a>
+    <a class="nav-link" href="{{path('profil')}}">Mon profil</a>
   </li>
   <li class="nav-item  active">
     <a class="nav-link" href="{{path('addLock')}}">Nouveau cadenas  <span class="sr-only">(current)</span></a>
   </li>
+  {% if is_granted('ROLE_ADMIN') %}
+    <li class="nav-item">
+      <a class="nav-link" href="{{path('displayAllUsers')}}">Administration </a>
+    </li>
+  {%endif%}
 </ul>
 </div>
 <div class="row justify-content-around" id="userLogOut">
@@ -44,6 +49,7 @@
   {{form_row(form.solution)}}
   {{form_row(form.type)}}
     <div id="codeZone"></div>
+    </br>
   {{form_row(form.intro)}}
   {{form_row(form.finalTexte)}}
   {{form_row(form.url)}}
@@ -51,10 +57,10 @@
   {{form_row(form.save)}}
 {{ form_end(form) }}
 </div>
-
+</div>
 {% endblock %}
 {% block javascripts %}
-  <script src="{{asset('js/PatternLock.js')}}"></script>
+  <script src="{{asset('js/patternlock.min.js')}}"></script>
   <script src="{{ asset('js/createLock.js') }}"></script>
   <script>
   $(document).ready(function() {
@@ -62,5 +68,13 @@
       lang: 'fr-FR',
     });
     });
+    function createSound(key){
+      var obj = document.createElement("audio");
+      obj.src = "{{ asset('samples/') }}"+key+".ogg";
+      obj.autoPlay = false;
+      obj.preload = true;
+      obj.controls = false;
+      obj.play();
+    }
   </script>
 {% endblock %}

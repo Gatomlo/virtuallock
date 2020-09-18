@@ -40,3 +40,6 @@ security:
          - { path: ^/addLock, roles: ROLE_USER }
          - { path: ^/editLock, roles: ROLE_USER }
          - { path: ^/deleteLock, roles: ROLE_USER }
+         - { path: ^/editProfil, roles: ROLE_USER }
+         - { path: ^/deleteProfil, roles: ROLE_USER }
+         - { path: ^/displayAllUsers, roles: ROLE_ADMIN }

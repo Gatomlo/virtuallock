@@ -13,17 +13,13 @@ use App\Form\LockType;
 
 class MainController extends AbstractController
 {
-
-
     /**
     * @Route("/displayAllLocks", name="app_home")
     */
       public function displayAllLocksAction(LockRepository $locksRepo)
       {
-
           return $this->render('main/displayAllLocks.html.twig');
       }
-
     /**
     * @Route("/displayLock/{serial}", name="displaylock")
     */
@@ -37,7 +33,6 @@ class MainController extends AbstractController
           'lock' => $lock,
         ]);
       }
-
       /**
       * @Route("/addLock", name="addLock")
       */
@@ -55,13 +50,14 @@ class MainController extends AbstractController
               $lock->SetSerial(uniqid($this->getUser()->getId()));
               $em->persist($lock);
               $em->flush();
+              $this->addFlash('messageFromAdding', 'Le cadenas a été créé.');
               return $this->redirectToRoute('displayAllLocks');
             }
           }
           return $this->render('main/addLock.html.twig', array(
-           'form' => $form->createView(), ));
+           'form' => $form->createView(),
+           'status' => 'Edition' ));
         }
-
         /**
         * @Route("/editLock/{id}", name="editLock")
         */
@@ -69,18 +65,25 @@ class MainController extends AbstractController
           {
             $em = $this->getDoctrine()->getManager();
             $lock = $locksRepo-> findOneBy(['id'=> $id]);
-            $form = $this->get('form.factory')->create(LockType::class, $lock);
-            if ($request->isMethod('POST')) {
-              $form->handleRequest($request);
-              if ($form->isValid()) {
-                $em->persist($lock);
-                $em->flush();
-                return $this->redirectToRoute('displayAllLocks');
-             }}
-             return $this->render('main/addLock.html.twig', array(
-              'form' => $form->createView(), ));
-          }
+            if( $this->getUser() == $lock->getUser()){
+              $form = $this->get('form.factory')->create(LockType::class, $lock);
+              if ($request->isMethod('POST')) {
+                $form->handleRequest($request);
+                if ($form->isValid()) {
+                  $em->persist($lock);
+                  $em->flush();
+                  return $this->redirectToRoute('displayAllLocks');
+               }}
+               return $this->render('main/addLock.html.twig', array(
+                'form' => $form->createView(),
+                'status' => 'Edition'));
+            }
+            else{
+              $this->addFlash('messagefromChange', 'Le cadenas a été modifié.');
+              return $this->redirectToRoute('displayAllLocks');
+            }
 
+          }
           /**
           * @Route("/deleteLock/{id}", name="deleteLock")
           */
@@ -88,8 +91,19 @@ class MainController extends AbstractController
             {
               $em = $this->getDoctrine()->getManager();
               $lock = $locksRepo-> findOneBy(['id'=> $id]);
-              $em->remove($lock);
-              $em->flush();
+              if( $this->getUser() == $lock->getUser()){
+                $em->remove($lock);
+                $em->flush();
+              }
+              $this->addFlash('messagefromDelete', 'Le cadenas a été supprimé.');
               return $this->redirectToRoute('displayAllLocks');
+            }
+
+          /**
+          * @Route("/profil}", name="profil")
+          */
+            public function profilAction()
+            {
+              return $this->render('main/profil.html.twig');
             }
 }

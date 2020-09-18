@@ -21,3 +21,23 @@ editLock:
 deleteLock:
     path: /deleteLock/{id}
     controller: App\Controller\MainController::deleteLockAction
+
+profil:
+    path: /profil
+    controller: App\Controller\MainController::profilAction
+
+deleteProfil:
+    path: /deleteProfil/{id}
+    controller: App\Controller\RegistrationController::deleteProfilAction
+
+editProfil:
+    path: /editProfil/{id}
+    controller: App\Controller\RegistrationController::editProfilAction
+
+displayAllUsers:
+    path: /displayAllUsers
+    controller: App\Controller\AdminController::displayAllUsersAction
+
+promoteUser:
+    path: /promoteUser/{id}
+    controller: App\Controller\AdminController::promoteUserAction

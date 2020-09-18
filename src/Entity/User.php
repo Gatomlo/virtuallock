@@ -44,7 +44,7 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Lock::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Lock::class, mappedBy="user",cascade={"persist", "remove"})
      */
     private $locks;
 

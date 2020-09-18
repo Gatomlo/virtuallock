@@ -7,65 +7,41 @@
 {% block body %}
 <div id="body">
   <div class="container">
-    <div id="intro">{{lock.intro | raw}}</div>
+    {% if lock.intro is not empty %}
+    <div class="card intro">
+      <div class="card-body">
+        {{lock.intro | raw}}
+      </div>
+    </div>
+    {% endif %}
     <div id="passZone">
       Entrer code
     </div>
     <div id="digit" class="container">
       <div class="row justify-content-center">
         <div class="col oneDigit">
-          <button id="switch1" data-index=0 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch0" data-index=0 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch2" data-index=1 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch1" data-index=1 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch3" data-index=2 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch2" data-index=2 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button  id="switch4" data-index=3 data-check="false" type="button" class="btn digit switch btn-primary">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col oneDigit">
-          <button id="switch5" data-index=4 data-check="false" type="button" class="btn digit switch btn-primary">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
-            </svg>
-          </button>
-        </div>
-        <div class="col oneDigit">
-          <button id="switch6" data-index=5 data-check="false" type="button" class="btn digit switch btn-primary">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
-            </svg>
-          </button>
-        </div>
-        <div class="col oneDigit">
-          <button id="switch7" data-index=6 data-check="false" type="button" class="btn digit switch btn-primary">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
-            </svg>
-          </button>
-        </div>
-        <div class="col oneDigit">
-          <button id="switch8" data-index=7 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button  id="switch3" data-index=3 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
@@ -74,28 +50,28 @@
       </div>
       <div class="row justify-content-center">
         <div class="col oneDigit">
-          <button id="switch9" data-index=8 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch4" data-index=4 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch10" data-index=9 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch5" data-index=5 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch11" data-index=10 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch6" data-index=6 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch12" data-index=11 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch7" data-index=7 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
@@ -104,28 +80,58 @@
       </div>
       <div class="row justify-content-center">
         <div class="col oneDigit">
-          <button id="switch13" data-index=12 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch8" data-index=8 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch14" data-index=13 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch9" data-index=9 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch15"  data-index=14 data-check="false" type="button" class="btn digit switch btn-primary">
+          <button id="switch10" data-index=10 data-check="false" type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
           </button>
         </div>
         <div class="col oneDigit">
-          <button id="switch16" data-index=15 data-check="false"  type="button" class="btn digit switch btn-primary">
+          <button id="switch11" data-index=11 data-check="false" type="button" class="btn digit switch btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col oneDigit">
+          <button id="switch12" data-index=12 data-check="false" type="button" class="btn digit switch btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="col oneDigit">
+          <button id="switch13" data-index=13 data-check="false" type="button" class="btn digit switch btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="col oneDigit">
+          <button id="switch14"  data-index=14 data-check="false" type="button" class="btn digit switch btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+            </svg>
+          </button>
+        </div>
+        <div class="col oneDigit">
+          <button id="switch15" data-index=15 data-check="false"  type="button" class="btn digit switch btn-primary">
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-toggle-off" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
             </svg>
@@ -205,7 +211,7 @@
   $('#send').click(function(){
     if (arraysAreIdentical(trying,solutionInArray('{{lock.solution}}'))){
       if ('{{lock.url}}' == ''){
-        $('#soluceZone').html('{{lock.finalTexte | raw}}');
+        $('#soluceZone').html('<div class="card outro"><div class="card-body">{{lock.finalTexte | raw}}</div></div>');
       }
       else{
         window.location.href = '{{lock.url}}';

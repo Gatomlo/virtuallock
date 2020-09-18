@@ -6,7 +6,16 @@
 
 <div id="body">
   <div class="container">
-    <div id="intro">{{lock.intro | raw}}</div>
+    {% if lock.intro is not empty %}
+    <div class="card intro">
+      <div class="card-body">
+        {{lock.intro | raw}}
+      </div>
+    </div>
+    {% endif %}
+    <div id="passZone">
+      Veuillez vous connecter
+    </div>
     <div id="loginBox" class="d-flex flex-column justify-content-center align-items-center" >
       <form>
         <div class="form-group">
@@ -31,7 +40,7 @@
       var mdp = $("#password").val();
       if(email == solutionInArray[0] && mdp == solutionInArray[1]){
         if ('{{lock.url}}' == ''){
-          $('#soluceZone').html('{{lock.finalTexte | raw}}');
+          $('#soluceZone').html('<div class="card outro"><div class="card-body">{{lock.finalTexte | raw}}</div></div>');
         }
         else{
           window.location.href = '{{lock.url}}';

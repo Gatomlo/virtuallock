@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use App\Repository\UserRepository;
 
 class RegistrationController extends AbstractController
 {
@@ -48,13 +49,13 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('no-reply@virtualock.org', 'Virtualock'))
-                    ->to($user->getEmail())
-                    ->subject('Merci de confirmer votre Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
+            // $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            //     (new TemplatedEmail())
+            //         ->from(new Address('no-reply@virtualock.org', 'Virtualock'))
+            //         ->to($user->getEmail())
+            //         ->subject('Merci de confirmer votre Email')
+            //         ->htmlTemplate('registration/confirmation_email.html.twig')
+            // );
             // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
@@ -69,7 +70,62 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-
+    /**
+     * @Route("/editProfil", name="editProfil")
+     */
+    public function editProfilAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepo,GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator,$id): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $userRepo-> findOneBy(['id'=> $id]);
+        if($this->getUser() == $user){
+          $form = $this->createForm(RegistrationFormType::class, $user);
+          $form->handleRequest($request);
+          if ($form->isSubmitted() && $form->isValid()) {
+              // encode the plain password
+              $user->setPassword(
+                  $passwordEncoder->encodePassword(
+                      $user,
+                      $form->get('plainPassword')->getData()
+                  )
+              );
+              $entityManager = $this->getDoctrine()->getManager();
+              $entityManager->persist($user);
+              $entityManager->flush();
+              return $this->render('main/profil.html.twig');
+          }
+          return $this->render('registration/editProfil.html.twig', [
+              'registrationForm' => $form->createView(),
+          ]);
+      }
+      $this->addFlash('messageFromChange', 'Votre profil a été mis à jour.');
+      return $this->redirectToRoute('profil');
+    }
+    /**
+     * @Route("/deleteProfil", name="deleteProfil")
+     */
+    public function deleteProfilAction($id, UserRepository $userRepo)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $userRepo-> findOneBy(['id'=> $id]);
+        if($this->getUser() == $user or $this->isGranted('ROLE_ADMIN')){
+          if($user->getId() != 1){
+            if(!$this->isGranted('ROLE_ADMIN')){
+              $this->container->get('security.token_storage')->setToken(null);
+            }
+            $em->remove($user);
+            $em->flush();
+          }
+          else{
+            $this->addFlash('messagefromDelete', 'L\'administrateur principal ne peut pas être supprimé');
+            return $this->redirectToRoute('displayAllUsers');
+          }
+        }
+        if($this->isGranted('ROLE_ADMIN')){
+          $this->addFlash('messagefromDelete', 'L\'utilisateur a été supprimé');
+          return $this->redirectToRoute('displayAllUsers');
+        }
+        return $this->redirectToRoute('index');
+    }
     /**
      * @Route("/verify/email", name="app_verify_email")
      */
