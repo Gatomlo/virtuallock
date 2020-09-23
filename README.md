@@ -2,13 +2,13 @@
 
 créer votre base de données vierge
 
-$ git clone https://github.com/Gatomlo/ProjectManager.git
+Modifier les infos de DB dans .env
 
-$ cd projectmanager
+ligne 34 => DATABASE_URL="mysql://login:mdp@ipserveur/nomdelabase"
 
 $ composer install
 
-répondre aux questions posées
+$php bin/console doctrine:schema:update --force
 
 $ php bin/console doctrine:fixtures:load
 
