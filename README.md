@@ -1,26 +1,35 @@
 # virtualock
+#*Requis*
+Php 7.3 ou supérieur
+MYSQL 5.6
+Composer
 
-créer votre base de données vierge
+#*Installation*
+Créer votre base une base de données vierge
 
-Modifier les infos de DB dans .env
+Modifier les infos d'accès à la DB dans .env
 
-ligne 34 => DATABASE_URL="mysql://login:mdp@ipserveur/nomdelabase"
+ ligne 34 => DATABASE_URL="mysql://login:mdp@ipserveur/nomdelabase"
+
+Lancer l'installation
 ```php
 $ composer install
 
 $php bin/console doctrine:schema:update --force
 
-$ php bin/console doctrine:fixtures:load```php
+$ php bin/console doctrine:fixtures:load```
 
 Un compte admin a été créé.
 
 *Login admin@admin.be
 *MDP Administrator
 
+#*En cas d'erreur (404,500)*
+
 En cas d'erreur, il est peut-être nécessaire de configurer .htaccess
 
 Un dans la racine du projet
-
+```php
 $SetEnv SHORT_OPEN_TAGS 0
 
 $SetEnv REGISTER_GLOBALS 0
@@ -39,14 +48,14 @@ $RewriteBase /
 
 $RewriteCond %{REQUEST_URI} !^/public/
 
-$RewriteRule ^(.*)$ /public/$1 [L]
+$RewriteRule ^(.*)$ /public/$1 [L]```
 
 Et un autre dans public/
-
+```php
 $RewriteEngine On
 
 $RewriteCond %{REQUEST_FILENAME} !-f
 
-$RewriteRule ^(.*)$ index.php [QSA,L]
+$RewriteRule ^(.*)$ index.php [QSA,L]```
 
 Et il faut bien faire pointer l'url sur la racine du projet et pas sur public/
