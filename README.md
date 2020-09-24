@@ -21,9 +21,9 @@ En cas d'erreur, il est peut-être nécessaire de configurer .htaccess
 
 Un dans la racine du projet
 
-SetEnv SHORT_OPEN_TAGS 0
+  SetEnv SHORT_OPEN_TAGS 0
 
-SetEnv REGISTER_GLOBALS 0
+  SetEnv REGISTER_GLOBALS 0
 
 SetEnv MAGIC_QUOTES 0
 
