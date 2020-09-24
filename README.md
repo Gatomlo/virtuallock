@@ -17,7 +17,7 @@ Lancer l'installation via console (ssh)
 ```
 $ composer install
 
-$php bin/console doctrine:schema:update --force
+$ php bin/console doctrine:schema:update --force
 
 $ php bin/console doctrine:fixtures:load
 ```
@@ -33,34 +33,34 @@ En cas d'erreur, il est peut-être nécessaire de configurer .htaccess
 
 Un dans la racine du projet
 ```
-$SetEnv SHORT_OPEN_TAGS 0
+SetEnv SHORT_OPEN_TAGS 0
 
-$SetEnv REGISTER_GLOBALS 0
+SetEnv REGISTER_GLOBALS 0
 
-$SetEnv MAGIC_QUOTES 0
+SetEnv MAGIC_QUOTES 0
 
-$SetEnv SESSION_AUTOSTART 0
+SetEnv SESSION_AUTOSTART 0
 
-$SetEnv ZEND_OPTIMIZER 1
+SetEnv ZEND_OPTIMIZER 1
 
-$SetEnv PHP_VER 7_3
+SetEnv PHP_VER 7_3
 
-$RewriteEngine on
+RewriteEngine on
 
-$RewriteBase /
+RewriteBase /
 
-$RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_URI} !^/public/
 
-$RewriteRule ^(.*)$ /public/$1 [L]
+RewriteRule ^(.*)$ /public/$1 [L]
 ```
 
 Et un autre dans public/
 ```
-$RewriteEngine On
+RewriteEngine On
 
-$RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-f
 
-$RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php [QSA,L]
 ```
 
 Et il faut bien faire pointer l'url sur la racine du projet et pas sur public/
