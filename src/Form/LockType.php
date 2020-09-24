@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class LockType extends AbstractType
 {
@@ -22,6 +23,7 @@ class LockType extends AbstractType
               'attr'=> array('class'=>'form-control')
             ))
             ->add('solution',HiddenType::class, array(
+              'required' => true,
               'label'=>'solution',
               'attr'=> array('class'=>'form-control')
             ))
@@ -47,7 +49,8 @@ class LockType extends AbstractType
               'label'=>'Texte final',
               'attr'=> array('class'=>'form-control summernote')
             ))
-            ->add('url',null,array(
+            ->add('url',UrlType::class,array(
+              'required'=> false,
               'label'=> 'URL de redirection',
               'attr'=> array('class'=>'form-control')
             ))

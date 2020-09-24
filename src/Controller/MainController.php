@@ -45,18 +45,20 @@ class MainController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-              $em = $this->getDoctrine()->getManager();
-              $lock->SetUser($this->getUser());
-              $lock->SetSerial(uniqid($this->getUser()->getId()));
-              $em->persist($lock);
-              $em->flush();
-              $this->addFlash('messageFromAdding', 'Le cadenas a été créé.');
-              return $this->redirectToRoute('displayAllLocks');
+              if($form->get('solution')->getData() != ''){
+                $em = $this->getDoctrine()->getManager();
+                $lock->SetUser($this->getUser());
+                $lock->SetSerial(uniqid($this->getUser()->getId()));
+                $em->persist($lock);
+                $em->flush();
+                $this->addFlash('messageFromAdding', 'Le cadenas a été créé.');
+                return $this->redirectToRoute('displayAllLocks');
+              }
             }
           }
           return $this->render('main/addLock.html.twig', array(
            'form' => $form->createView(),
-           'status' => 'Edition' ));
+           'status' => 'Création' ));
         }
         /**
         * @Route("/editLock/{id}", name="editLock")

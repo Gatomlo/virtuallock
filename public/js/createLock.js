@@ -2,6 +2,7 @@ trying =[];
 type ='';
 diagram ="";
 $('#document').ready(function(){
+  console.log(trying)
   addInterface();
   var solution = $('#lock_solution').val();
   var arraySolution = solution.split(',');
@@ -131,6 +132,7 @@ $('#document').ready(function(){
   addAction();
 })
 $('#lock_type').change(function(){
+  trying=[];
   addInterface();
   addAction();
 })
@@ -142,14 +144,14 @@ function addInterface(){
       var codeInstance = '<div>Mot de passe souhaitez.</div><input type="text" id="password" class="form-control"   aria-describedby="button-addon4">'
       break;
     case 'login':
-      var codeInstance = '<div>Login et mot de passe souhaitez.</div><input type="text" id="login" placeholder="login" class="form-control"   aria-describedby="button-addon4">'+
+      var codeInstance = '<div>Login et mot de passe souhaité.</div><input type="text" id="login" placeholder="login" class="form-control"   aria-describedby="button-addon4">'+
         '</br><input type="text" placeholder="Mot de passe" id="mdp" class="form-control"   aria-describedby="button-addon4">'
       break;
     case 'color':
       var codeInstance ='</br><div id="digit" class="container"><div class="row justify-content-center">'+
         '<div class="col oneDigit"><button id="violetDigit" data-color="violet" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="violet" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
         '<div class="col oneDigit"><button id="blueDigit" data-color="blue" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="blue" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
-        '<div class="col oneDigit"><button id="greenDigit" data-color="green" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="lightgreen" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="greenDigit" data-color="green" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="green" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
         '<div class="col oneDigit"><button id="yellowDigit" data-color="yellow" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="yellow" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
         '<div class="col oneDigit"><button id="orangeDigit" data-color="orange" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="orange" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
         '<div class="col oneDigit"><button id="redDigit" data-color="red" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="red" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
@@ -205,7 +207,6 @@ function addInterface(){
         else{
           trying = arraySolution;
         }
-        console.log(trying)
         break;
   }
   $('#codeZone').html(codeInstance);
@@ -372,25 +373,32 @@ function addAction(){
   });
   })
   //Insertion du code dans le formulaire au click sur le bouton sauver
-  $('#lock_save').click(function(){
-  switch(type){
-    case 'password':
-      var finalSolution = $('#password').val();
-      $('#lock_solution').val(finalSolution);
-      break;
-    case 'login':
-      var login = $('#login').val();
-      var mdp = $('#mdp').val();
-      var finalSolution = login+','+mdp
-      $('#lock_solution').val(finalSolution);
-      break;
-    case 'digicode':
-      var finalSolution = $('#numberCode').val();
-      $('#lock_solution').val(finalSolution);
-      break;
-    default:
-    var finalSolution = trying.join(',');
-      $('#lock_solution').val(finalSolution);
-  }
+  $('#lock_save').click(function(e){
+    var test = $('#lock_solution').val()
+    switch(type){
+      case 'password':
+        var finalSolution = $('#password').val();
+        $('#lock_solution').val(finalSolution);
+        break;
+      case 'login':
+        var login = $('#login').val();
+        var mdp = $('#mdp').val();
+        var finalSolution = login+','+mdp
+        $('#lock_solution').val(finalSolution);
+        break;
+      case 'digicode':
+        var finalSolution = $('#numberCode').val();
+        $('#lock_solution').val(finalSolution);
+        break;
+      default:
+      if(trying != ''){
+        var finalSolution = trying.join(',');
+        $('#lock_solution').val(finalSolution);
+      }
+      else{
+        e.preventDefault()
+        $('#error').html('<div class="alert alert-danger" role="alert">Vous devez définir une solution !</div>')
+      }
+    }
   })
 }
