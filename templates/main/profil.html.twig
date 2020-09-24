@@ -48,7 +48,9 @@
     <p class="card-text">{{app.user.name}}</p>
     <p class="card-text">{{app.user.email}}</p>
     <a href="{{path('editProfil',{id:app.user.id})}}" class="btn btn-primary">Modifier profil</a>
-    <a href=""  data-url="{{url('deleteProfil',{id:app.user.id}) }}" class="btn btn-danger" data-toggle="modal"  data-target="#deleteModal">Supprimer compte</a>
+    {% if app.user.id != 1 %}
+      <a href=""  data-url="{{url('deleteProfil',{id:app.user.id}) }}" class="btn btn-danger" data-toggle="modal"  data-target="#deleteModal">Supprimer compte</a>
+    {% endif %}
   </div>
 </div>
 <!-- Modal de suppression -->
