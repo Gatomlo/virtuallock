@@ -67,7 +67,7 @@ class MainController extends AbstractController
           {
             $em = $this->getDoctrine()->getManager();
             $lock = $locksRepo-> findOneBy(['id'=> $id]);
-            if( $this->getUser() == $lock->getUser()){
+            if( $this->getUser() == $lock->getUser() or $this->isGranted('ROLE_ADMIN')){
               $form = $this->get('form.factory')->create(LockType::class, $lock);
               if ($request->isMethod('POST')) {
                 $form->handleRequest($request);
