@@ -209,6 +209,8 @@
     '</svg>')
   })
   $('#send').click(function(){
+    console.log(trying)
+    console.log(solutionInArray('{{lock.solution}}'))
     if (arraysAreIdentical(trying,solutionInArray('{{lock.solution}}'))){
       if ('{{lock.url}}' == ''){
         $('#soluceZone').html('<div class="card outro"><div class="card-body">{{lock.finalTexte | raw}}</div></div>');

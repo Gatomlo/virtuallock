@@ -35,7 +35,16 @@
   <script>
     var solution = '{{lock.solution}}';
     var solutionInArray = solution.split(",")
+    $(document).on('keypress',function(e) {
+      if(e.which == 13) {
+          send()
+      }
+    });
     $('#send').click(function(){
+      send()
+    });
+
+    function send(){
       var email = $("#login").val();
       var mdp = $("#password").val();
       if(email == solutionInArray[0] && mdp == solutionInArray[1]){
@@ -52,7 +61,7 @@
       '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
         '<span aria-hidden="true">&times;</span></button></div>')
       }
-    })
+    }
   </script>
 
 {% endblock %}
