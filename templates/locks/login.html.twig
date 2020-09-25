@@ -37,11 +37,11 @@
     var solutionInArray = solution.split(",")
     $(document).on('keypress',function(e) {
       if(e.which == 13) {
-          send()
+        e.preventDefault()
+        send()
       }
     });
-    $('#send').click(function(e){
-      e.preventDefault()
+    $('#send').click(function(){
       send()
     });
 
