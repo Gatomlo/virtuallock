@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VirtualLock{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% for flashError in app.flashes('messagefromDelete') %}
+      <div class="alert alert-danger" role="alert">{{ flashError }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  {% endfor %}
+  {% for flashError in app.flashes('messageFromChange') %}
+      <div class="alert alert-warning" role="alert">{{ flashError }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  {% endfor %}
+  {% for flashError in app.flashes('messageFromAdding') %}
+      <div class="alert alert-warning" role="alert">{{ flashError }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  {% endfor %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">
+      <img class="img-fluid  mx-auto d-block" width="250px" alt="logo" src="{{ asset('logos/logo-virtualLock_logo.png') }}"></img>
+    </a>
+  </nav>
+<form method="post">
+    </br>
+    <div>Entre le numéro de série d'un cadenas</div></br>
+      <input type="text" name="serial" id="searchLockInput" class="form-control" required autofocus>
+    </br>
+    <button class="btn btn-lg btn-primary" type="submit">
+      Chercher
+    </button>
+</form>
+</div>
+{% endblock %}

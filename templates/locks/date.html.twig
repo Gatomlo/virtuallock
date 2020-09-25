@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VirtualLock{% endblock %}
+
+{% block body %}
+
+<div id="body">
+  <div class="container">
+    {% if lock.intro is not empty %}
+    <div class="card intro">
+      <div class="card-body">
+        {{lock.intro | raw}}
+      </div>
+    </div>
+    {% endif %}
+    <div id="passZone">
+      Entrer date
+    </div>
+    <div id="loginBox" class="d-flex flex-column justify-content-center align-items-center" >
+      <form id="form">
+        <div class="input-group">
+          <div id="datepicker"></div>
+          <input type="hidden" id="date">
+          <div class="input-group-append" id="button-addon4">
+            <button id="send" class="btn btn-outline-secondary btn-primary" type="button">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-key-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="soluceZone"></div>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+  (function($){
+    $.fn.datepicker.dates['fr'] = {
+    days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+    daysShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+    daysMin: ["d", "l", "ma", "me", "j", "v", "s"],
+    months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+    monthsShort: ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+    today: "Aujourd'hui",
+    monthsTitle: "Mois",
+    clear: "Effacer",
+    weekStart: 1,
+    format: "dd/mm/yyyy"
+    };
+    }(jQuery));
+  $('#datepicker').datepicker({
+    language:'fr'
+  });
+  $('#datepicker').on('changeDate', function() {
+    $('#date').val(
+        $('#datepicker').datepicker('getFormattedDate')
+    );
+});
+  $(document).on('keypress',function(e) {
+    if(e.which == 13) {
+      e.preventDefault()
+      send()
+    }
+  });
+  $('#send').click(function(){
+    send()
+  });
+  function send(){
+    var password = $("#date").val();
+    if (password === '{{lock.solution}}'){
+      if ('{{lock.url}}' == ''){
+        $('#soluceZone').html('<div class="card outro"><div class="card-body">{{lock.finalTexte | raw}}</div></div>');
+      }
+      else{
+        window.location.href = '{{lock.url}}';
+      }
+    }
+    else{
+      $('#loginBox').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
+      '<strong>Erreur!</strong> Mauvaise date.'+
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+        '<span aria-hidden="true">&times;</span></button></div>')
+    }
+  };
+</script>
+{% endblock %}

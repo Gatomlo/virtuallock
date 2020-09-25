@@ -127,6 +127,9 @@ $('#document').ready(function(){
           }
         });
         break;
+        case 'date':
+          $('#date').val(arraySolution[0]);
+          break;
   }
   addAction();
 })
@@ -160,7 +163,6 @@ function addInterface(){
       break;
       case 'diagram':
         var codeInstance = '</br><div id="lock"></div>'
-
         break;
       case 'directional':
         var codeInstance = '<div id="digit" class="container"><div class="row justify-content-center">'+
@@ -206,6 +208,9 @@ function addInterface(){
         else{
           trying = arraySolution;
         }
+        break;
+        case 'date':
+          var codeInstance = '<div>Choisissez une date.</div><div id="datepicker" value="02-16-2020"></div><input type="hidden" id="date">'
         break;
   }
   $('#codeZone').html(codeInstance);
@@ -369,6 +374,28 @@ function addAction(){
   }, 500 * i);
   });
   })
+  //fonctions pour l'interface date
+      $.fn.datepicker.dates['fr'] = {
+      days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+      daysShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+      daysMin: ["d", "l", "ma", "me", "j", "v", "s"],
+      months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+      monthsShort: ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+      today: "Aujourd'hui",
+      monthsTitle: "Mois",
+      clear: "Effacer",
+      weekStart: 1,
+      format: "dd/mm/yyyy"
+      };
+    $('#datepicker').datepicker({
+      language:'fr',
+    });
+    $('#datepicker').on('changeDate', function() {
+      $('#date').val(
+          $('#datepicker').datepicker('getFormattedDate')
+      );
+  });
+  $('#datepicker').datepicker('setDate',$('#lock_solution').val());
   //Insertion du code dans le formulaire au click sur le bouton sauver
   $('#lock_save').click(function(e){
     var test = $('#lock_solution').val()
@@ -377,6 +404,10 @@ function addAction(){
         var finalSolution = $('#password').val();
         $('#lock_solution').val(finalSolution);
         break;
+        case 'date':
+          var finalSolution = $('#date').val();
+          $('#lock_solution').val(finalSolution);
+          break;
       case 'login':
         var login = $('#login').val();
         var mdp = $('#mdp').val();
@@ -398,4 +429,5 @@ function addAction(){
       }
     }
   })
+
 }

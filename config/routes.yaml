@@ -1,6 +1,10 @@
 index:
-    path: /index
+    path: /
     controller: App\Controller\SecurityController::login
+
+searchLock:
+    path: /recherche
+    controller: App\Controller\MainController::searchLockAction
 
 displayAllLocks:
     path: /displayAllLocks

@@ -18,8 +18,29 @@ class MainController extends AbstractController
     */
       public function displayAllLocksAction(LockRepository $locksRepo)
       {
+
           return $this->render('main/displayAllLocks.html.twig');
       }
+      /**
+      * @Route("/searchLock", name="searchLock")
+      */
+        public function searchLockAction(LockRepository $locksRepo,Request $request)
+        {
+          if ($request->isMethod('POST')) {
+            $serial = $request->get('serial');
+            $lock = $locksRepo-> findOneBy(['serial'=> $serial]);
+            if($lock){
+              return $this->redirectToRoute('displayLock', array(
+                 'serial' => $serial,
+              ));
+            }
+            else{
+              $this->addFlash('messagefromDelete', 'Pas de cadenas correspondant!');
+              return $this->redirectToRoute('searchLock');
+            }
+          }
+          return $this->render('main/searchLock.html.twig');
+        }
     /**
     * @Route("/displayLock/{serial}", name="displaylock")
     */

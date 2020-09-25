@@ -38,7 +38,8 @@ class LockType extends AbstractType
                 'Code chiffré' => 'digicode',
                 'Code à Schema' => 'diagram',
                 'Code à interrupteurs' => 'switch',
-                'Code musical' => 'piano' ],
+                'Code musical' => 'piano' ,
+                'Code calendrier'=>'date'],
                 'placeholder' => 'Choisissez un cadenas',
             ))
             ->add('intro',null,array(
