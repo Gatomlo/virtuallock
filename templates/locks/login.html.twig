@@ -40,7 +40,8 @@
           send()
       }
     });
-    $('#send').click(function(){
+    $('#send').click(function(e){
+      e.preventDefault()
       send()
     });
 
