@@ -2,7 +2,6 @@ trying =[];
 type ='';
 diagram ="";
 $('#document').ready(function(){
-  console.log(trying)
   addInterface();
   var solution = $('#lock_solution').val();
   var arraySolution = solution.split(',');
@@ -215,10 +214,8 @@ function addInterface(){
     enableSetPattern : true,
     onDraw:function(data){
       trying = data.split("");
-      console.log(trying)
  }
   });
-
 }
 function addAction(){
   //fonctions pour l'interface color
