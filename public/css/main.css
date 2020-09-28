@@ -110,5 +110,7 @@
 }
 
 @media screen and (max-device-width:480px) {
-background-color:red;
+  #container{
+    background-color:red;
+  }
 }
