@@ -5,10 +5,10 @@
 {% block body %}
 
 <div id="body">
-  <div class="container">
+  <div id="lockContainer" class="container">
     {% if lock.intro is not empty %}
     <div class="card intro">
-      <div class="card-body">
+      <div id="lockIntro" class="card-body">
         {{lock.intro | raw}}
       </div>
     </div>

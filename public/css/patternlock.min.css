@@ -48,3 +48,11 @@
 .patt-hidden .patt-lines{
   display:none
 }
+
+@media screen and (max-device-width:480px) {
+  .patt-dots,.patt-lines{
+    border-radius:5px;
+    height:10px;
+    position:absolute
+  }
+}
