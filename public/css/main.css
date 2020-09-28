@@ -108,3 +108,7 @@
   border-color: green;
   border-radius: 5px;
 }
+
+@media screen and (max-device-width:480px) {
+background-color:red;
+}
