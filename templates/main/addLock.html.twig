@@ -96,7 +96,7 @@
           console.log("closed")
           $('#lock_finalTexte').summernote('disable');
         }
-        if($('#lock_url').val() == '' || $('#lock_finalTexte').val() == '<p><br></p>'){
+        if($('#lock_url').val() == '' || $('#lock_finalTexte').val() == '<p><br></p>'  || $('#lock_finalTexte').val() == '<br>'){
           $('#lock_finalTexte').summernote('enable');
         }
       })
