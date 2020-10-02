@@ -137,6 +137,7 @@ $('#lock_type').change(function(){
   trying=[];
   addInterface();
   addAction();
+  console.log('ok')
 })
 
 function addInterface(){

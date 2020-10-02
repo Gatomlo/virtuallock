@@ -45,7 +45,6 @@
 </div>
 </div>
 </nav>
-
 {{ form_start(form) }}
   {{form_row(form.name)}}
   {{form_row(form.solution)}}
@@ -53,6 +52,9 @@
     <div id="codeZone"></div>
     </br>
   {{form_row(form.intro)}}
+  </br>
+  <div><i>Veuillez introduire soit un texte de fin soit une URL de redirection.</i></div>
+  </br>
   {{form_row(form.finalTexte)}}
   {{form_row(form.url)}}
   </br>
@@ -67,8 +69,18 @@
   $(document).ready(function() {
     $('.summernote').summernote({
       lang: 'fr-FR',
+      callbacks: {
+        onKeyup: function(e) {
+          if($('#lock_finalTexte').val() != ''){
+            $('#lock_url').prop( "disabled", true );
+          }
+          if($('#lock_finalTexte').val() == '' || $('#lock_finalTexte').val() == '<p><br></p>'){
+            $('#lock_url').prop( "disabled", false );
+          }
+        }
+      }
     });
-    });
+  });
     function createSound(key){
       var obj = document.createElement("audio");
       obj.src = "{{ asset('samples/') }}"+key+".ogg";
@@ -77,5 +89,18 @@
       obj.controls = false;
       obj.play();
     }
+    $(document).ready(function() {
+      $('#lock_url').keyup(function(){
+        console.log($('#lock_url').val());
+        if($('#lock_url').val() != ''){
+          console.log("closed")
+          $('#lock_finalTexte').summernote('disable');
+        }
+        if($('#lock_url').val() == '' || $('#lock_finalTexte').val() == '<p><br></p>'){
+          $('#lock_finalTexte').summernote('enable');
+        }
+      })
+    });
+
   </script>
 {% endblock %}
