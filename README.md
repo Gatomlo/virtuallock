@@ -25,4 +25,4 @@ $ php bin/console doctrine:fixtures:load
 Un compte admin a été créé.
 
 *Login admin@admin.be
-*MDP Administrator
+*MDP administrator
