@@ -3,6 +3,7 @@
 {% block title %}{{status}} de cadenas{% endblock %}
 {% block stylesheets %}
   <link rel="stylesheet" href="{{ asset('css/piano.css') }}">
+  <link rel="stylesheet" href="{{ asset('selectize/css/selectize.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -47,6 +48,7 @@
 </nav>
 {{ form_start(form) }}
   {{form_row(form.name)}}
+  {{form_row(form.category)}}
   {{form_row(form.solution)}}
   {{form_row(form.type)}}
     <div id="codeZone"></div>
@@ -65,6 +67,7 @@
 {% endblock %}
 {% block javascripts %}
   <script src="{{ asset('js/createLock.js') }}"></script>
+  <script src="{{ asset('selectize/js/standalone/selectize.js') }}"></script>
   <script>
   $(document).ready(function() {
     $('.summernote').summernote({
@@ -101,6 +104,28 @@
         }
       })
     });
-
+    $('.category').selectize({
+      plugins: ['remove_button'],
+      valueField: 'text',
+      labelField: 'text',
+      searchField: 'text',
+      maxItems: 1,
+      create: true,
+      options: [],
+      load: function(query, callback) {
+        if (!query.length) return callback();
+        $.ajax({
+            url: '{{ path('jsonListCategories')}}',
+            type: 'GET',
+            dataType: 'json',
+            error: function() {
+                callback();
+            },
+            success: function(res) {
+              callback(res);
+            }
+        });
+    }
+});
   </script>
 {% endblock %}

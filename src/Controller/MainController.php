@@ -6,7 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Entity\Lock;
+use App\Entity\Category;
 use App\Repository\LockRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\LockType;
 
@@ -57,7 +59,7 @@ class MainController extends AbstractController
       /**
       * @Route("/addLock", name="addLock")
       */
-        public function addLockAction(Request $request)
+        public function addLockAction(CategoryRepository $categoryRepo,Request $request)
         {
           $lock = new Lock();
           $form = $this->createForm(LockType::class, $lock);
@@ -66,8 +68,20 @@ class MainController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+              $em = $this->getDoctrine()->getManager();
+              $category = $form->get('category')->getData();
+              $existingCategory = $categoryRepo->findOneBy(array('name'=> $category));
+              if (empty($existingCategory)){
+                $newCategory = new Category();
+                $newCategory->setName($category);
+                $newCategory->setUser($this->getUser());
+                $em->persist($newCategory);
+                $lock->setCategory($newCategory);
+              }
+              else {
+                $lock->setCategory($existingCategory);
+              }
               if($form->get('solution')->getData() != ''){
-                $em = $this->getDoctrine()->getManager();
                 $lock->SetUser($this->getUser());
                 $lock->SetSerial(uniqid($this->getUser()->getId()));
                 $em->persist($lock);
@@ -84,15 +98,28 @@ class MainController extends AbstractController
         /**
         * @Route("/editLock/{id}", name="editLock")
         */
-          public function editLockAction(Request $request, LockRepository $locksRepo, $id)
+          public function editLockAction(Request $request, LockRepository $locksRepo,CategoryRepository $categoryRepo, $id)
           {
             $em = $this->getDoctrine()->getManager();
             $lock = $locksRepo-> findOneBy(['id'=> $id]);
             if( $this->getUser() == $lock->getUser() or $this->isGranted('ROLE_ADMIN')){
-              $form = $this->get('form.factory')->create(LockType::class, $lock);
+              $actualCategory = $lock->getCategory()->getName();
+              $form = $this->get('form.factory')->create(LockType::class, $lock, array('actualCategory'=>$actualCategory));
               if ($request->isMethod('POST')) {
                 $form->handleRequest($request);
                 if ($form->isValid()) {
+                  $category = $form->get('category')->getData();
+                  $existingCategory = $categoryRepo->findOneBy(array('name'=> $category));
+                  if (empty($existingCategory)){
+                    $newCategory = new Category();
+                    $newCategory->setName($category);
+                    $newCategory->setUser($this->getUser());
+                    $em->persist($newCategory);
+                    $lock->setCategory($newCategory);
+                  }
+                  else {
+                    $lock->setCategory($existingCategory);
+                  }
                   $em->persist($lock);
                   $em->flush();
                   return $this->redirectToRoute('displayAllLocks');

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Lock;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +22,19 @@ class LockType extends AbstractType
             ->add('name',null,array(
               'label'=>'Nom du cadenas',
               'attr'=> array('class'=>'form-control')
+            ))
+            // ->add('category',EntityType::class,array(
+            //   'label'=>'Catégorie',
+            //   'class' => Category::class,
+            //   'choice_label' => 'name',
+            //   'attr'=> array('class'=>'form-control'),
+            //   'placeholder' => 'Nouvelle catégorie',
+            // ))
+            ->add('category',TextType::class,array(
+              'mapped'=> false,
+              'label'=>'Catégorie',
+              'attr'=> array('class'=>'category '),
+              'data' => $options['actualCategory'],
             ))
             ->add('solution',HiddenType::class, array(
               'required' => true,
@@ -63,6 +77,8 @@ class LockType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults(array(
+          'actualCategory' => '',
+        ));
     }
 }

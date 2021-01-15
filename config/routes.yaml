@@ -45,3 +45,15 @@ displayAllUsers:
 promoteUser:
     path: /promoteUser/{id}
     controller: App\Controller\AdminController::promoteUserAction
+
+jsonListCategories:
+    path: /jsonListCategories
+    controller: App\Controller\CategoryController::jsonListCategoriesAction
+
+deleteCategory:
+    path: /deleteCategory/{id}
+    controller: App\Controller\CategoryController::deleteCategoryAction
+
+editCategory:
+    path: /editCategory/{id}/{newName}
+    controller: App\Controller\CategoryController::editCategoryAction
