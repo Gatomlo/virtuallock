@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VirtualLock{% endblock %}
+
+{% block body %}
+
+<div id="body">
+  <div class="container">
+    <div class="card outroZone">
+      <div id="finalTexteZone" class="card-body ">
+        {{lock.finalTexte | raw }}
+      </div>
+   </div>
+    <table id="zoneCopyright" style="height: 50px;">
+      <tbody>
+        <tr>
+          <td class="align-middle">©</td>
+          <td class="align-middle"><img id="copyrightLogo" class="img-fluid  mx-auto d-block" alt="logo" src="{{ asset('logos/logo-virtualLock_logo-color.png') }}"></img></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+
+
+{% endblock %}

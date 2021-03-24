@@ -22,9 +22,10 @@
 }
 
 #passZone{
-  font-size: 60px;
+  font-size: 40px;
   text-align: center;
   color:#007bff;
+  margin-left: auto;
 }
 
 .wrong{
@@ -105,8 +106,40 @@
   width:50%;
   margin: auto;
   margin-top: 50px;
-  border-color: green;
+  border-color: #007bff;
   border-radius: 5px;
+}
+.outroZone{
+max-width: 800px;
+margin:auto;
+margin-top:50px;
+border-color: #007bff;
+}
+#copyrightLogo{
+  width:150px;
+}
+#zoneCopyright{
+  margin: auto;
+}
+
+.passCard{
+margin: auto;
+margin-top: 50px;
+
+max-width: 800px;
+border-color: #007bff;
+}
+.passCardBody{
+  border-color: #007bff;
+  margin-bottom: 50px;
+
+}
+.passCardHeader{
+  border-color: #007bff;
+}
+
+#digit .col{
+  padding:0;
 }
 
 
@@ -120,17 +153,8 @@
     border-width: 5px;
     border-radius: 5px;
     font-size: 2em;
+  }
 
-  }
-  .outro{
-    width:100%;
-    margin: auto;
-    margin-top: 50px;
-    border-color: green;
-    border-radius: 5px;
-    border-width: 5px;
-    font-size: 2em;
-  }
   .digit{
     width:150px;
     font-size: 90px;
@@ -142,7 +166,7 @@
     width: 100%;
   }
   .form-control{
-    font-size: 1.5em;
+    font-size: 1em;
     border-color: #007bff;
     border-radius: 5px;
     border-width: 5px;
@@ -165,8 +189,26 @@
 
   #digit{
     width: 100%;
+    margin: auto;
+  }
+
+  #digit .col{
+    padding:0;
   }
   #dateSend{
     margin-left: 100px;
-  }
+    .outroZone{
+    margin-top:50px;
+    border-color: #007bff;
+    }
+#finalTexteZone{
+  font-size: 3em;
+}
+#passZone{
+  font-size: 30px;
+  margin: auto;
+}
+#lock{
+  margin:auto;
+}
 }

@@ -156,4 +156,23 @@ class MainController extends AbstractController
             {
               return $this->render('main/profil.html.twig');
             }
+
+            /**
+            * @Route("/secret/{id}/{$userSoluce}", name="secret")
+            */
+              public function testSoluceAction(LockRepository $locksRepo, $id, $userSoluce)
+              {
+                $lock = $locksRepo-> findOneBy(['id'=> $id]);
+                $goodSoluce = $lock ->getSolution();
+                if($goodSoluce == $userSoluce){
+                  if($lock->getUrl() == ''){
+                    return $this->render('locks/contentSoluce.html.twig',array(
+                      'lock'=>$lock
+                    ));
+                  }
+                  else{
+                    return $this->redirect($lock->getUrl(), 301);
+                  }
+                }
+              }
 }

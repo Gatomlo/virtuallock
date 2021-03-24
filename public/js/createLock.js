@@ -386,7 +386,7 @@ function addAction(){
       monthsTitle: "Mois",
       clear: "Effacer",
       weekStart: 1,
-      format: "dd/mm/yyyy"
+      format: "dd-mm-yyyy"
       };
     $('#datepicker').datepicker({
       language:'fr',

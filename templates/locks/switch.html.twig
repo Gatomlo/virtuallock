@@ -7,13 +7,13 @@
 {% block body %}
 <div id="body">
   <div class="container">
+    <div class="card passCard" >
     {% if lock.intro is not empty %}
-    <div class="card intro">
-      <div class="card-body">
+    <div class="card-header passCardHeader">
         {{lock.intro | raw}}
-      </div>
     </div>
     {% endif %}
+    <div class="card-body passCardBody">
     <div id="passZone">
       Entrer code
     </div>
@@ -156,6 +156,16 @@
       </div>
     </div>
     <div id="soluceZone"></div>
+    </div>
+    </div>
+    <table id="zoneCopyright" style="height: 50px;">
+      <tbody>
+        <tr>
+          <td class="align-middle">©</td>
+          <td class="align-middle"><img id="copyrightLogo" class="img-fluid  mx-auto d-block" alt="logo" src="{{ asset('logos/logo-virtualLock_logo-color.png') }}"></img></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 {% endblock %}
@@ -191,15 +201,6 @@
     trying[position]=!value;
     $(this).data('check',!value);
   })
-  function arraysAreIdentical(arr1, arr2){
-    if (arr1.length !== arr2.length) return false;
-    for (var i = 0, len = arr1.length; i < len; i++){
-      if (arr1[i] !== arr2[i]){
-      return false;
-    }
-  }
-  return true;
-  }
 
   $('#reset').click(function() {
     trying = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
@@ -209,23 +210,27 @@
     '</svg>')
   })
   $('#send').click(function(){
-    console.log(trying)
-    console.log(solutionInArray('{{lock.solution}}'))
-    if (arraysAreIdentical(trying,solutionInArray('{{lock.solution}}'))){
-      if ('{{lock.url}}' == ''){
-        $('#soluceZone').html('<div class="card outro"><div class="card-body">{{lock.finalTexte | raw}}</div></div>');
-      }
-      else{
-        window.location.href = '{{lock.url}}';
-      }
-    }
-    else{
-      $('#soluceZone').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
-      '<strong>Erreur!</strong>Code incorrect.'+
-      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-        '<span aria-hidden="true">&times;</span></button></div>')
-    }
+    send()
   })
+  function send(){
+    var password = trying.join(',');
+    $("#message").alert('close');
+    var url = "{{ path('testSoluce',{ 'id': lock.id, 'userSoluce':'password'})}}";
+    url = url.replace('password',password);
+    $.ajax({
+      url : url,
+      cache: false,
+      dataType:'html',
+      success:function(data){window.location.href = url},
+      error:function(){
+        $('#soluceZone').append('<div id="message" class="alert alert-danger alert-dismissible fade show" role="alert">'+
+        '<strong>Erreur!</strong> Mot de passe incorrect.'+
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+          '<span aria-hidden="true">&times;</span></button></div>')
+        },
+      crossDomain:true
+    })
+  }
 
 
 </script>
