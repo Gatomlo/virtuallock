@@ -22,7 +22,7 @@
 }
 
 #passZone{
-  font-size: 40px;
+  font-size: 2em;
   text-align: center;
   color:#007bff;
   margin-left: auto;
@@ -134,14 +134,18 @@ border-color: #007bff;
 
 
 }
-
+.toast{
+  background-color: red;
+}
 #digit .col{
   padding:0;
 }
 
-
 @media (min-width : 320px) and (max-width:768px){
-
+  .container{
+    max-height: 80%;
+    max-width: 100vw;
+  }
   .intro{
     width:100%;
     margin: auto;
@@ -151,7 +155,6 @@ border-color: #007bff;
     border-radius: 5px;
     font-size: 2em;
   }
-
   .digit{
     width:150px;
     font-size: 90px;
@@ -202,7 +205,7 @@ border-color: #007bff;
   font-size: 3em;
 }
 #passZone{
-  font-size: 30px;
+  font-size: 4em;
   margin: auto;
 }
 #lock{

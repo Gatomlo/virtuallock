@@ -1,21 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}VirtualLock{% endblock %}
-{% block stylesheets %}
-  <style>.col{
-    text-align: center;
-    max-width: 80px;
-  }
-  #passZone{
-    font-size: 60px;
-    text-align: center;
-  }
-
-  .wrong{
-    color:red;
-  }
-  </style>
-{% endblock %}
 
 {% block body %}
 <div id="body">
@@ -75,7 +60,11 @@
       </tr>
     </tbody>
   </table>
+
+
 </div>
+
+
 {% endblock %}
 {% block javascripts %}
 <script>
