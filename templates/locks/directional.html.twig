@@ -224,7 +224,6 @@
     url = url.replace('password',password);
     $.ajax({
       url : url,
-      cache: false,
       dataType:'html',
       success:function(data){window.location.href = url},
       error:function(){

@@ -17,7 +17,7 @@ $('#document').ready(function(){
     case 'color':
         $('#actualCode').html("");
         $.each(arraySolution, function(index,color){
-          $("#actualCode").append('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="'+color+'" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg>');
+          $("#actualCode").append('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#'+color+'" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg>');
         });
         trying = arraySolution;
       break;
@@ -152,13 +152,16 @@ function addInterface(){
       break;
     case 'color':
       var codeInstance ='</br><div id="digit" class="container"><div class="row justify-content-center">'+
-        '<div class="col oneDigit"><button id="violetDigit" data-color="violet" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="violet" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
-        '<div class="col oneDigit"><button id="blueDigit" data-color="blue" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="blue" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
-        '<div class="col oneDigit"><button id="greenDigit" data-color="green" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="green" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
-        '<div class="col oneDigit"><button id="yellowDigit" data-color="yellow" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="yellow" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
-        '<div class="col oneDigit"><button id="orangeDigit" data-color="orange" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="orange" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
-        '<div class="col oneDigit"><button id="redDigit" data-color="red" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="red" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
-        '<div class="col oneDigit"><button id="blackDigit" data-color="black" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="black" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="pinkDigit" data-color="F06292" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#F06292" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="blueDigit" data-color="0b30d9" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#0b30d9" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="greenDigit" data-color="0c9411" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#0c9411" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="yellowDigit" data-color="fafa1e" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#fafa1e" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="orangeDigit" data-color="ff8d0d" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#ff8d0d" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="redDigit" data-color="ff0000" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#ff0000" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="violetDigit" data-color="7B1FA2" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#7B1FA2" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="brownDigit" data-color="582900" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#582900" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="grayDigit" data-color="878787" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#878787" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
+        '<div class="col oneDigit"><button id="blackDigit" data-color="000000" type="button" class="btn digit btn-primary colorButton"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#000000" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg></button></div>'+
         '<div class="col oneDigit"><button button id="resetColor" type="button" class="btn digit btn-primary"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bootstrap-reboot" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M1.161 8a6.84 6.84 0 1 0 6.842-6.84.58.58 0 0 1 0-1.16 8 8 0 1 1-6.556 3.412l-.663-.577a.58.58 0 0 1 .227-.997l2.52-.69a.58.58 0 0 1 .728.633l-.332 2.592a.58.58 0 0 1-.956.364l-.643-.56A6.812 6.812 0 0 0 1.16 8zm5.48-.079V5.277h1.57c.881 0 1.416.499 1.416 1.32 0 .84-.504 1.324-1.386 1.324h-1.6zm0 3.75V8.843h1.57l1.498 2.828h1.314L9.377 8.665c.897-.3 1.427-1.106 1.427-2.1 0-1.37-.943-2.246-2.456-2.246H5.5v7.352h1.141z"/></svg></button></div>'+
         '</div><div>Votre code : <span id="actualCode"></span></div>'
       break;
@@ -234,7 +237,7 @@ function addAction(){
   function displayColors(){
     $('#actualCode').html("");
     $.each(trying, function(index,color){
-      $("#actualCode").append('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="'+color+'" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg>');
+      $("#actualCode").append('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-circle-fill" fill="#'+color+'" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg>');
     });
   }
   $('#resetColor').click(function() {

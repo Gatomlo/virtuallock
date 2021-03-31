@@ -158,7 +158,7 @@ class MainController extends AbstractController
             }
 
             /**
-            * @Route("/secret/{id}/{$userSoluce}", name="secret")
+            * @Route("/testSoluceAction/{id}/{$userSoluce}", name="testSoluceAction")
             */
               public function testSoluceAction(LockRepository $locksRepo, $id, $userSoluce)
               {
