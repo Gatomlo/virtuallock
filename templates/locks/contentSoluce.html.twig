@@ -24,23 +24,6 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-<script>
-  function removeTags(str) {
-    if ((str===null) || (str===''))
-        return false;
-    else
-        str = str.toString();
-    return str.replace( /(<([^>]+)>)/ig, '');
-}
-  var continuer = document.getElementById('finalTexteZone').innerHTML
-  continuer = removeTags(continuer);
-  var values = continuer.split("=")
-  var theDiv = window.parent.document.getElementsByTagName('iframe')
-  theDiv = $(theDiv).parent()
-  theDiv.html("<div class='continuer'>"+values[0]+"</div>")
-  console.log(theDiv)
 
-
-</script>
 
 {% endblock %}
