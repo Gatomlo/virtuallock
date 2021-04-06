@@ -25,11 +25,11 @@
 {% endblock %}
 {% block javascripts %}
 <script>
-  document.domain = 'crp.education'
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
-    var theDiv = $(window.frameElement).parent()
+    var theDiv = window.frameElement
+    theDiv = $(theDiv).parent()
     var theName = window.parent.$('.autolink')
     theName.each(function(index,oneName){
       if($(oneName).attr('title') === isMoodle[1]){
