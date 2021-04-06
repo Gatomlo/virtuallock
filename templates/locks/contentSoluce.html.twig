@@ -30,12 +30,11 @@
   if(isMoodle[0] == "moodle"){
     var theDiv = window.parent.document.getElementsByTagName('iframe')
     theDiv = $(theDiv).parent()
-    var theName = window.parent.$('.instancename')
+    var theName = window.parent.$('.autolink')
     theName.each(function(index,oneName){
-      var url = $(oneName).parent().attr('href')
-      if($(oneName).text() === isMoodle[1]){
+      if($(oneName).attr('title') === isMoodle[1]){
         theDiv = $(theDiv).parent()
-        theDiv.html("<a href="+url+"><div class='continuer'>"+isMoodle[1]+"</div></a>")
+        theDiv.html("<a href="+$(oneName).attr('href')+"><div class='continuer'>"+isMoodle[1]+"</div></a>")
       }
     })
   }
