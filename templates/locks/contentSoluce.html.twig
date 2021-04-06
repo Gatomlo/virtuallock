@@ -25,14 +25,13 @@
 {% endblock %}
 {% block javascripts %}
 <script>
-  function message() {
-		window.parent.postMessage('message', "http://localhost");
-		console.log("Button clicked in the frame");
+  function message(activityToLink) {
+		window.parent.postMessage('virtualLok='+activityToLink, "http://localhost");
 	}
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
-    message()
+    message(isMoodle[1])
     var theDiv = window.parent.$('iframe').parent()
     // theDiv = $(theDiv).parent()
     var theName = window.parent.$('.autolink')
