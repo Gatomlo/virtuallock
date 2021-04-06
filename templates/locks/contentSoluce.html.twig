@@ -28,15 +28,11 @@
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
-    // var theDiv = window.parent.document.getElementsByTagName('iframe')
-    var test = $(window.frameElement).parent()
-    console.log(test)
-    theDiv = $(theDiv).parent()
+    var theDiv = $(window.frameElement).parent()
     var theName = window.parent.$('.autolink')
     theName.each(function(index,oneName){
       if($(oneName).attr('title') === isMoodle[1]){
-        theDiv = $(theDiv).parent()
-        test.html("<a href="+$(oneName).attr('href')+"><div class='continuer'>"+isMoodle[1]+"</div></a>")
+        theDiv.html("<a href="+$(oneName).attr('href')+"><div class='continuer'>"+isMoodle[1]+"</div></a>")
       }
     })
   }
