@@ -1,3 +1,9 @@
+.sliders{
+  height:120px;
+  float:left;
+  margin:15px
+}
+
 #logo{
   text-align: center;
   font-size: 80px;

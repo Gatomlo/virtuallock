@@ -137,12 +137,14 @@ $('#lock_type').change(function(){
   trying=[];
   addInterface();
   addAction();
-  console.log('ok')
 })
 
 function addInterface(){
   type = $('#lock_type').val();
   switch(type){
+    case 'slider':
+      var codeInstance = '<div>Configuration du cadenas à réglette.</div></br></div>Orientation des réglettes<select class="form-control" id="orientationSlider"><option value="vertical">vertical</option><option value="horizontal">horizontal</option></select></br>Nombre de réglettes<input class="form-control" id="sliderQuantity" type="number"></br>Valeur minimale<input class="form-control" id="sliderMin" type="number"></br>Valeur maximale<input class="form-control" id="sliderMax" type="number"></br>Ecart<input class="form-control" id="sliderRange" type="number"></div><div><input id="ex4" type="text" data-slider-min="0" data-slider-max="4" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/></div>'
+      break;
     case 'password':
       var codeInstance = '<div>Mot de passe souhaitez.</div><input type="text" id="password" class="form-control"   aria-describedby="button-addon4">'
       break;
@@ -227,6 +229,11 @@ function addInterface(){
   });
 }
 function addAction(){
+  //fonctions pour les sliders
+  $("#ex4").slider({
+	reversed : true
+});
+
   //fonctions pour l'interface color
   $('.colorButton').click(function(){
     var color = $(this).data('color');

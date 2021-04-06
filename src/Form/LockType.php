@@ -53,6 +53,7 @@ class LockType extends AbstractType
                 'Code à Schema' => 'diagram',
                 'Code à interrupteurs' => 'switch',
                 'Code musical' => 'piano' ,
+                'Code à réglette' => 'slider' ,
                 'Code calendrier'=>'date'],
                 'placeholder' => 'Choisissez un cadenas',
             ))
