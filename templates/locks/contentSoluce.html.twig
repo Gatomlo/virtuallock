@@ -28,7 +28,7 @@
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
-    var theDiv = window.parent.document.getElementsByTagName('iframe')
+    // var theDiv = window.parent.document.getElementsByTagName('iframe')
     var test = $(window.frameElement).parent()
     console.log(test)
     theDiv = $(theDiv).parent()
