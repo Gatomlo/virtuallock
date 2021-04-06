@@ -26,11 +26,14 @@
 {% block javascripts %}
 <script>
   var continuer =$.trim($('#finalTexteZone').text())
+  console.log("1")
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
     var theDiv = window.parent.$('iframe').parent()
+    console.log("2")
     // theDiv = $(theDiv).parent()
     var theName = window.parent.$('.autolink')
+    console.log("3")
     theName.each(function(index,oneName){
       if($(oneName).attr('title') === isMoodle[1]){
         theDiv.html("<a href="+$(oneName).attr('href')+"><div class='continuer'>"+isMoodle[1]+"</div></a>")
