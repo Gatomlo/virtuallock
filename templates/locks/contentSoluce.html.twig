@@ -25,6 +25,7 @@
 {% endblock %}
 {% block javascripts %}
 <script>
+  document.domain = 'crp.education'
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
