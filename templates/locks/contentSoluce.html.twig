@@ -24,6 +24,21 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-
+<script>
+  var continuer =$.trim($('#finalTexteZone').text())
+  var isMoodle = continuer.split('=')
+  if(isMoodle[0] == "moodle"){
+    var theDiv = window.parent.document.getElementsByTagName('iframe')
+    theDiv = $(theDiv).parent()
+    var theName = window.parent.$('.instancename')
+    theName.each(function(index,oneName){
+      var url = $(oneName).parent().attr('href')
+      if($(oneName).text() === isMoodle[1]){
+        theDiv = $(theDiv).parent()
+        theDiv.html("<a href="+url+"><div class='continuer'>"+isMoodle[1]+"</div></a>")
+      }
+    })
+  }
+</script>
 
 {% endblock %}
