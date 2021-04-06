@@ -20,11 +20,11 @@
       </tbody>
     </table>
   </div>
-
+<button id="my-btn">Send to parent</button>
 </div>
 {% endblock %}
 {% block javascripts %}
-<script>
+<!-- <script>
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
@@ -37,6 +37,13 @@
       }
     })
   }
+</script> -->
+<script>
+	document.getElementById('my-btn').addEventListener('click', handleButtonClick, false);
+	function handleButtonClick(e) {
+		window.parent.postMessage('message', "http://localhost");
+		console.log("Button clicked in the frame");
+	}
 </script>
 
 {% endblock %}
