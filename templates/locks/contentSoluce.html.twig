@@ -28,7 +28,7 @@
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
-    var theDiv = window.frameElement
+    var theDiv = window.parent.$('iframe')
     theDiv = $(theDiv).parent()
     var theName = window.parent.$('.autolink')
     theName.each(function(index,oneName){
