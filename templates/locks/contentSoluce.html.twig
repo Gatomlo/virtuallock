@@ -24,9 +24,12 @@
 {% endblock %}
 {% block javascripts %}
 <script>
-  function message(activityToLink) {
-		window.parent.postMessage('virtualLok='+activityToLink, "http://localhost");
-	}
+  var grantedPlateforms = ["https://dev.crp.education","https://formation.crp.education","https://production.crp.education","https://diffusion.crp.education"]
+  grantedPlateforms.each(index,platform){
+    function message(activityToLink) {
+      window.parent.postMessage('virtualLok='+activityToLink, platform);
+    }
+  }
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
