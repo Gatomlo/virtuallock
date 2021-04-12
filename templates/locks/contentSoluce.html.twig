@@ -24,11 +24,11 @@
 {% endblock %}
 {% block javascripts %}
 <script>
-  var grantedPlateforms = ["https://dev.crp.education","https://formation.crp.education","https://production.crp.education","https://diffusion.crp.education"]
-  grantedPlateforms.each(index,platform){
-    function message(activityToLink) {
-      window.parent.postMessage('virtualLok='+activityToLink, platform);
-    }
+  let grantedPlateforms = ["https://dev.crp.education","https://formation.crp.education","https://production.crp.education","https://diffusion.crp.education"]
+  function message(activityToLink) {
+    $(grantedPlateforms).each(function(index,platform){
+      window.parent.postMessage('virtualLok='+activityToLink, "https://dev.crp.education");
+    })
   }
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
