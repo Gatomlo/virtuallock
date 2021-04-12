@@ -31,22 +31,6 @@
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle"){
     message(isMoodle[1])
-    // var theDiv = window.parent.$('iframe').parent()
-    // // theDiv = $(theDiv).parent()
-    // var theName = window.parent.$('.autolink')
-    // theName.each(function(index,oneName){
-    //   if($(oneName).attr('title') === isMoodle[1]){
-    //     theDiv.html("<a href="+$(oneName).attr('href')+"><div class='continuer'>"+isMoodle[1]+"</div></a>")
-    //   }
-    // })
   }
 </script>
-<!-- <script>
-	document.getElementById('my-btn').addEventListener('click', handleButtonClick, false);
-	function handleButtonClick(e) {
-		window.parent.postMessage('message', "http://localhost");
-		console.log("Button clicked in the frame");
-	}
-</script> -->
-
 {% endblock %}
