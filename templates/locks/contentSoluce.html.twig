@@ -24,6 +24,11 @@
 {% endblock %}
 {% block javascripts %}
 <script>
+  window.addEventListener('message', function(e) {
+	console.log('received message:  ' + e.data, e);
+}, false);
+
+
   let grantedPlateforms = ["https://dev.crp.education","https://formation.crp.education","https://production.crp.education","https://diffusion.crp.education"]
   function message(typeOfLink,activityToLink) {
     $(grantedPlateforms).each(function(index,platform){
@@ -34,7 +39,6 @@
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle" || isMoodle[0] == "moodle-redirection"){
-	console.log("execute")  
   message(isMoodle[0],isMoodle[1])
   }
 </script>
