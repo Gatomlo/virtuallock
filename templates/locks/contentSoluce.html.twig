@@ -25,9 +25,9 @@
 {% block javascripts %}
 <script>
   let grantedPlateforms = ["https://dev.crp.education","https://formation.crp.education","https://production.crp.education","https://diffusion.crp.education"]
-  function message(activityToLink) {
+  function message(typeOfLink,activityToLink) {
     $(grantedPlateforms).each(function(index,platform){
-      window.parent.postMessage('virtualLock='+activityToLink, platform);
+      window.parent.postMessage(typeOfLink+'='+activityToLink, platform);
     })
   }
 
@@ -35,7 +35,7 @@
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle" || isMoodle[0] == "moodle-redirection"){
 	console.log("execute")  
-  message(isMoodle[1])
+  message(isMoodle[0],isMoodle[1])
   }
 </script>
 {% endblock %}
