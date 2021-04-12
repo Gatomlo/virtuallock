@@ -34,7 +34,8 @@
   var continuer =$.trim($('#finalTexteZone').text())
   var isMoodle = continuer.split('=')
   if(isMoodle[0] == "moodle" || isMoodle[0] == "moodle-redirection"){
-    message(isMoodle[1])
+	console.log("execute")  
+  message(isMoodle[1])
   }
 </script>
 {% endblock %}
