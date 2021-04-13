@@ -30,7 +30,7 @@ Un compte admin a été créé.
 *MDP administrator
 
 ## *Génération de lien dans Moodle*
-# *Configuration*
+### *Configuration*
 
 Insérer le script suivant dans votrre thème en adaptant l'url.
 ```
@@ -55,19 +55,19 @@ Insérer le script suivant dans votrre thème en adaptant l'url.
   }, false);
 </script>
 ```
-Ensuite, dans les paramètres de la plateforme,insérer les urls des plateformes Moodle avec lesquelles vous voulez utiliser VirtualLock.
+Ensuite, dans les paramètres de la plateforme,insérer les urls des plateformes Moodle avec lesquelles vous voulez utiliser VirtualLock.Il faut séparer les urls par ";".
 
-# *Usage côté VirtualLock*
-Insérer dans le text final du cadenas
+### *Usage côté VirtualLock*
+Insérer dans le text final du cadenas l'une des propositions suivante.
 
 Pour générer un lien cliquable => moodle=nomdelactivitemoodlealier
 
 Pour rediriger => moodle-redirection=nomdelactivitemoodlealier
 
-# *Usage côté Moodle*
+### *Usage côté Moodle*
 
 Insérer dans un livre ou une étiquette l'iframe de votre cadenas.
-Insérer le bout de code suivant:
+Puis, sous l'iframe, insérer le bout de code suivant:
 
 ```
 <div hidden>nomdelactivitemoodlealier</div>
