@@ -28,3 +28,47 @@ Un compte admin a été créé.
 
 *Login admin@admin.be
 *MDP administrator
+
+## *Génération de lien dans Moodle*
+# *Configuration*
+
+Insérer le script suivant dans votrre thème en adaptant l'url.
+```
+<script>
+  //VirtualLock
+  var urlInstance = "url de votre instance de VirtualLock"
+  window.addEventListener('message', function(e) {
+    if(e.origin == urlInstance){
+      var receivedMessage = e.data.split('=')
+      var theLink = $('.autolink')
+      theLink.each(function(index,oneLink){
+        if($(oneLink).attr('title') === receivedMessage[1]){
+          if(receivedMessage[0] == "moodle"){
+            $('iframe').parent().html("<a href="+$(oneLink).attr('href')+"><div class='continuer linkFromVirtualLock'>"+receivedMessage[1]+"</div></a>")
+          }
+          if(receivedMessage[0] == "moodle-redirection"){
+            window.location.href = $(oneLink).attr('href');
+          }  
+        }
+      })    
+    }
+  }, false);
+</script>
+```
+Ensuite, dans les paramètres de la plateforme,insérer les urls des plateformes Moodle avec lesquelles vous voulez utiliser VirtualLock.
+
+# *Usage côté VirtualLock*
+Insérer dans le text final du cadenas
+
+Pour générer un lien cliquable => moodle=nomdelactivitemoodlealier
+
+Pour rediriger => moodle-redirection=nomdelactivitemoodlealier
+
+# *Usage côté Moodle*
+
+Insérer dans un livre ou une étiquette l'iframe de votre cadenas.
+Insérer le bout de code suivant:
+
+```
+<div hidden>nomdelactivitemoodlealier</div>
+```

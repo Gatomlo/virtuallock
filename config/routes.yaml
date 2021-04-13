@@ -55,6 +55,19 @@ promoteUser:
     path: /promoteUser/{id}
     controller: App\Controller\AdminController::promoteUserAction
 
+registerFromAdmin:
+    path: /registerFromAdmin/
+    controller: App\Controller\RegistrationController:registerFromAdminAction
+
+parameters:
+    path: /parameters/
+    controller: App\Controller\AdminController:parametersAction
+
+editParameter:
+    path: /editCategory/{id}/{newValue}
+    controller: App\Controller\AdminController::editParameterAction
+
+
 jsonListCategories:
     path: /jsonListCategories
     controller: App\Controller\CategoryController::jsonListCategoriesAction

@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{app.user.firstname}} {{app.user.name}}{% endblock %}
-
+{% block title %}Administration{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -18,15 +17,15 @@
       <a class="nav-link" href="{{path('displayAllLocks')}}">Mes cadenas</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{path('addLock')}}">Nouveau cadenas </a>
+      <a class="nav-link" href="#">Mon profil <span class="sr-only"></span></a>
     </li>
-    <li class="nav-item   active">
-      <a class="nav-link" href="#">Mon profil <span class="sr-only">(current)</span></a>
+    <li class="nav-item">
+      <a class="nav-link" href="{{path('addLock')}}">Nouveau cadenas </a>
     </li>
     {% if is_granted('ROLE_ADMIN') %}
     <li class="nav-item active">
       <div class="dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle active" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Administration
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -52,46 +51,22 @@
   </div>
   </nav>
   <div class="card">
-  <div class="card-body">
-    <p class="card-text">{{app.user.firstname}}</p>
-    <p class="card-text">{{app.user.name}}</p>
-    <p class="card-text">{{app.user.email}}</p>
-    <a href="{{path('editProfil',{id:app.user.id})}}" class="btn btn-primary">Modifier profil</a>
-    {% if app.user.id != 1 %}
-      <a href=""  data-url="{{url('deleteProfil',{id:app.user.id}) }}" class="btn btn-danger" data-toggle="modal"  data-target="#deleteModal">Supprimer compte</a>
-    {% endif %}
-  </div>
-</div>
-<!-- Modal de suppression -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Suppression de votre compte</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Voulez-vous vraiment supprimer votre compte ? Cette action sera definitive et entrainera la supression de tous vos cadenas.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <a id="deleteButton" type="button" class="btn btn-danger">Supprimer</a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+    <div class="card-body">
+  {% for flashError in app.flashes('verify_email_error') %}
+      <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+  {% endfor %}
+  {{ form_start(registrationForm) }}
+      {{ form_row(registrationForm.firstname) }}
+      {{ form_row(registrationForm.name) }}
+      {{ form_row(registrationForm.email) }}
+      {{ form_row(registrationForm.plainPassword, {
+          label: 'Password'
+      }) }}
+      </br>
 
-{% endblock %}
-{% block javascripts %}
-  <script>
-    $('#deleteModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget); // Button that triggered the modal
-      url = button.data('url');
-      var modal = $(this);
-      modal.find('#deleteButton').attr('href', url);
-    })
-  </script>
+      <button type="submit" class="btn btn-primary">Créer le compte</button>
+  {{ form_end(registrationForm) }}
+</div>
+</div>
+</div>
 {% endblock %}

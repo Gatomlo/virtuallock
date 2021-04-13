@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
+use App\Entity\Parameters;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -24,6 +25,11 @@ class AppFixtures extends Fixture
         $password = $this->encoder->encodePassword($user, 'administrator');
         $user->setPassword($password);
         $manager->persist($user);
+
+        $parameter = new Parameters();
+        $parameter->setName('moodleplateforms');
+        $manager->persist($parameter);
+
         $manager->flush();
     }
 }

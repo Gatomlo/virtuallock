@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Entity\Lock;
 use App\Entity\Category;
 use App\Repository\LockRepository;
+use App\Repository\ParametersRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\LockType;
@@ -160,14 +161,16 @@ class MainController extends AbstractController
             /**
             * @Route("/testSoluceAction/{id}/{$userSoluce}", name="testSoluceAction")
             */
-              public function testSoluceAction(LockRepository $locksRepo, $id, $userSoluce)
+              public function testSoluceAction(LockRepository $locksRepo,ParametersRepository $paramRepo, $id, $userSoluce)
               {
+                $moodlePlatforms = $paramRepo -> findOneBy(['name'=>'moodleplateforms']);
                 $lock = $locksRepo-> findOneBy(['id'=> $id]);
                 $goodSoluce = $lock ->getSolution();
                 if($goodSoluce == $userSoluce){
                   if($lock->getUrl() == ''){
                     return $this->render('locks/contentSoluce.html.twig',array(
-                      'lock'=>$lock
+                      'lock'=>$lock,
+                      'moodlePlatforms'=>$moodlePlatforms->getValue()
                     ));
                   }
                   else{

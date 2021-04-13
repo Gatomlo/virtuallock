@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% for flashError in app.flashes('messagefromDelete') %}
+      <div class="alert alert-danger" role="alert">{{ flashError }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  {% endfor %}
+  {% for flashError in app.flashes('messageFromChange') %}
+      <div class="alert alert-warning" role="alert">{{ flashError }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  {% endfor %}
+  {% for flashError in app.flashes('messageFromAdding') %}
+      <div class="alert alert-warning" role="alert">{{ flashError }}<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button></div>
+  {% endfor %}
+  {% if is_granted('ROLE_ADMIN') %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">
+        <img class="img-fluid  mx-auto d-block" width="250px" alt="logo" src="{{ asset('logos/logo-virtualLock_logo.png') }}"></img>
+      </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('displayAllLocks')}}">Mes cadenas </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('addLock')}}">Nouveau cadenas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('profil')}}">Mon profil</a>
+      </li>
+
+      {% if is_granted('ROLE_ADMIN') %}
+        <!-- <li class="nav-item active">
+          <a class="nav-link" href="{{path('displayAllUsers')}}">Administration </a>
+        </li> -->
+        <li class="nav-item active">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Administration
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="{{path('displayAllUsers')}}">Utilisateurs </a>
+              <a class="dropdown-item" href="{{path('registerFromAdmin')}}">Nouvel utilisateur </a>
+              <a class="dropdown-item" href="{{path('parameters')}}">Paramètres</a>
+            </div>
+          </div>
+        </li>
+      {%endif%}
+    </ul>
+  </div>
+  <div class="row justify-content-around" id="userLogOut">
+    <div class="align-self-center">{{app.user.firstname}} {{app.user.name}}</div>
+    <div class="align-self-center" >
+      <a id="logoutLink" href="{{path('app_logout')}}" class="btn">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="card">
+    <div class="card-body">
+      {% for parameter in parameters%}
+        <div class="card">
+          <div class="card-header">{{parameter.name}} </div>
+          <div class="card-body">
+            <div class=" d-flex justify-content-between align-items-center">
+              <span data-id="{{parameter.id}}" class='parameterValue'>{{parameter.value}}</span>
+              <button id="editButton{{parameter.id}}" class="btn editButton" data-placement="top" data-toggle="modal" data-id="{{parameter.id}}" data-target="#editCategoryModal" data-name="{{parameter.name}}" data-placement="top" title="Modifier la catégorie">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="#007bff" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+{% block javascripts %}
+  <script>
+  $('.editButton').click(function(){
+    var actualValue = $(this).parent().find('.parameterValue').text()
+    let actualId = $(this).parent().find('.parameterValue').data('id')
+    $(this).parent().parent().find('.parameterValue').parent().parent().html('<div class="">'+
+    '{{ form_start(form,{"attr":{"class":"editForm input-group mb-3"}}) }}{{form_widget(form.id)}}{{form_widget(form.value)}}'+
+    '{{form_widget(form.save)}}'+
+    '<button data-cancelButton="'+actualId+'" class="btn btn-outline-secondary cancelButton" type="button" id="button-addon2">'+
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#007bff" class="bi bi-x" viewBox="0 0 16 16">'+
+        '<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>'+
+        '</svg></button>'+
+    '{{ form_end(form) }}')
+    $('#parameter_value').val(actualValue);
+    $('#parameter_id').val(actualId);
+    $('.editButton').prop('disabled',true)
+    $('.cancelButton').click(function(){
+       window.location.href = "{{path('parameters')}}"
+    })
+  })
+  </script>
+{% endblock %}

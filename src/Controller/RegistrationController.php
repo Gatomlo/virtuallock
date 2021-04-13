@@ -25,11 +25,45 @@ class RegistrationController extends AbstractController
     {
         $this->emailVerifier = $emailVerifier;
     }
+    /**
+     * @Route("/registerFromAdmin", name="app_registerFromAdmin")
+     */
+    public function registerFromAdmin(Request $request, UserPasswordEncoderInterface $passwordEncoder,UserRepository $userRepo): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+
+            $users = $userRepo-> findBy(array(), array('name' => 'ASC'));
+            return $this->render('admin/displayAllUsers.html.twig',[
+              'users'=>$users
+            ]);
+
+        }
+
+        return $this->render('registration/registerFromAdmin.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
 
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator): Response
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UsersAuthenticator $authenticator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);

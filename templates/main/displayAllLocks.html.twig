@@ -33,15 +33,24 @@
         <a class="nav-link" href="{{path('displayAllLocks')}}">Mes cadenas <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{path('profil')}}">Mon profil</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="{{path('addLock')}}">Nouveau cadenas</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('profil')}}">Mon profil</a>
+      </li>
       {% if is_granted('ROLE_ADMIN') %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{path('displayAllUsers')}}">Administration </a>
-        </li>
+      <li class="nav-item active">
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Administration
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{{path('displayAllUsers')}}">Utilisateurs </a>
+            <a class="dropdown-item" href="{{path('registerFromAdmin')}}">Nouvel utilisateur </a>
+            <a class="dropdown-item" href="{{path('parameters')}}">Paramètres</a>
+          </div>
+        </div>
+      </li>
       {%endif%}
     </ul>
   </div>

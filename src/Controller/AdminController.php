@@ -10,6 +10,10 @@ use App\Repository\LockRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\LockType;
 use App\Repository\UserRepository;
+use App\Entity\Parameters;
+use App\Form\ParameterType;
+use App\Repository\ParametersRepository;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class AdminController extends AbstractController
 {
@@ -23,6 +27,35 @@ class AdminController extends AbstractController
             'users'=>$users
           ]);
         }
+    /**
+    * @Route("/parameters", name="parameters")
+    */
+     public function parametersAction(ParametersRepository $paramRepo,Request $request)
+     {
+       $parameters = $paramRepo-> findAll();
+       $parameter = new Parameters();
+       $form = $this->get('form.factory')->create(ParameterType::class, $parameter);
+        // Si la requête est en POST
+        if ($request->isMethod('POST')) {
+          $form->handleRequest($request);
+          if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $paramId = $form->get('id')->getData();
+            $newValue = $form->get('value')->getData();
+            $actualParam = $paramRepo->findOneBy(array('id'=> $paramId));
+            $actualParam->setValue($newValue);
+            $em->persist($actualParam);
+            $em->flush();
+            return $this->redirectToRoute('parameters');
+          }
+        }
+
+        return $this->render('admin/parameters.html.twig',array(
+         'form' => $form->createView(),
+         'parameters'=>$parameters
+         ));
+      }
+
     /**
     * @Route("/promoteUser", name="promoteUser")
     */

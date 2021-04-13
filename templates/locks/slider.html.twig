@@ -19,7 +19,12 @@
       <div id="loginBox" class="d-flex flex-column justify-content-center align-items-center" >
         <form id="form">
           <div class="input-group">
-            <input type="text" id="password" class="form-control"   aria-describedby="button-addon4">
+            <p>
+  <label for="amount">Volume:</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+
+<div id="slider-vertical" style="height:200px;"></div>
             <div class="input-group-append" id="button-addon4">
               <button  id="send" class="btn btn-outline-secondary btn-primary" type="button">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-key-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -77,6 +82,21 @@
       crossDomain:true
     })
   }
+</script>
+<script>
+$( function() {
+  $( "#slider-vertical" ).slider({
+    orientation: "vertical",
+    range: "min",
+    min: 0,
+    max: 100,
+    value: 60,
+    slide: function( event, ui ) {
+      $( "#amount" ).val( ui.value );
+    }
+  });
+  $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
+} );
 </script>
 
 

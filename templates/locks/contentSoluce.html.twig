@@ -21,19 +21,23 @@
     </table>
   </div>
 </div>
+
 {% endblock %}
 {% block javascripts %}
 <script>
-  let grantedPlateforms = ["https://dev.crp.education","https://formation.crp.education","https://production.crp.education","https://diffusion.crp.education"]
-  function message(typeOfLink,activityToLink) {
-    $(grantedPlateforms).each(function(index,platform){
-      window.parent.postMessage(typeOfLink+'='+activityToLink, platform);
-    })
-  }
-  var continuer =$.trim($('#finalTexteZone').text())
-  var isMoodle = continuer.split('=')
-  if(isMoodle[0] == "moodle" || isMoodle[0] == "moodle-redirection"){
-  message(isMoodle[0],isMoodle[1])
+  var grantedPlateforms = "{{moodlePlatforms}}"
+  if(grantedPlateforms !=''){
+    grantedPlateforms=grantedPlateforms.split(';')
+    function message(typeOfLink,activityToLink) {
+      $(grantedPlateforms).each(function(index,platform){
+        window.parent.postMessage(typeOfLink+'='+activityToLink, platform);
+      })
+    }
+    var continuer =$.trim($('#finalTexteZone').text())
+    var isMoodle = continuer.split('=')
+    if(isMoodle[0] == "moodle" || isMoodle[0] == "moodle-redirection"){
+      message(isMoodle[0],isMoodle[1])
+    }
   }
 </script>
 {% endblock %}
