@@ -148,6 +148,7 @@ border-color: #007bff;
 }
 
 @media (min-width : 320px) and (max-width:768px){
+
   .container{
     max-height: 80%;
     max-width: 100vw;
@@ -224,4 +225,12 @@ border-color: #007bff;
 width: 100%;
 }
 
+}
+#datepicker{
+
+  font-size: 0.5  em;
+}
+.switch{
+  width: 50px;
+  font-size: 1.5em;
 }
