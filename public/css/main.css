@@ -147,7 +147,7 @@ border-color: #007bff;
   padding:0;
 }
 
-@media (min-width : 320px) and (max-width:768px){
+@media (min-width : 340px) and (max-width:768px){
 
   .container{
     max-height: 80%;
@@ -183,6 +183,10 @@ border-color: #007bff;
     font-size: 2em;
   }
 
+  #datepicker{
+    font-size:0.75em;
+  }
+
   .digit{
     width:70px;
     font-size: 45px;
@@ -202,9 +206,10 @@ border-color: #007bff;
   #digit .col{
     padding:0;
   }
+
   #dateSend{
-    margin-left: 100px;
-    .outroZone{
+    margin-left: 100px;}
+  .outroZone{
     margin-top:50px;
     border-color: #007bff;
     }
@@ -212,7 +217,7 @@ border-color: #007bff;
   font-size: 3em;
 }
 #passZone{
-  font-size: 4em;
+  font-size: 3em;
   margin: auto;
 }
 #lock{
@@ -225,12 +230,10 @@ border-color: #007bff;
 width: 100%;
 }
 
-}
-#datepicker{
-
-  font-size: 0.5  em;
-}
 .switch{
-  width: 50px;
+ max-width:45px;
   font-size: 1.5em;
+}
+
+
 }
